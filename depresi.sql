@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2018 at 12:03 AM
+-- Generation Time: Nov 13, 2018 at 04:14 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -223,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `tb_pakar` (
   `bobot_kat` float NOT NULL,
   `id_gejala` varchar(5) NOT NULL,
   `bobot_gj` float NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=84 ;
 
 --
 -- Dumping data for table `tb_pakar`
@@ -375,8 +375,7 @@ CREATE TABLE IF NOT EXISTS `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `nama`, `alamat`, `usia`, `gender`, `level`) VALUES
-(1, 'aji', '827ccb0eea8a706c4c34a16891f84e7b', 'aji', 'Sleman', 18, 'L', 'admin'),
-(2, 'nuri', '827ccb0eea8a706c4c34a16891f84e7b', 'nuri', 'mejing', 26, 'L', 'user');
+(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'admin', 'Yogyakarta', 25, 'P', 'admin');
 
 -- --------------------------------------------------------
 
@@ -478,7 +477,7 @@ MODIFY `id_hasil` int(5) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tb_pakar`
 --
 ALTER TABLE `tb_pakar`
-MODIFY `id_pakar` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
+MODIFY `id_pakar` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT for table `tb_premis1`
 --
