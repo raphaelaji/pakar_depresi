@@ -87,6 +87,11 @@ class M_kategori extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_kategori() {
+   		$query = $this->db->get('tb_kategori');
+		return $query->result_array();
+	}
+
     public function jumlah_kategori()
 	{
 		$this->db->select('*');
