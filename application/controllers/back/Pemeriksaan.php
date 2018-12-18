@@ -8,15 +8,19 @@ class Pemeriksaan extends CI_Controller {
     $this->load->helper('form');
     $this->load->helper('url');
     $this->load->model('back/M_pemeriksaan');
+    $this->load->model('back/M_faktor');
+    $this->load->model('back/M_gejala');
+    $this->load->model('back/M_kategori');
 	}
 
 	// Menampilkan seluruh data
 	public function index(){
     $data['kategori'] = $this->M_pemeriksaan->get_kategori();
-		$data['pertanyaan'] = $this->M_pemeriksaan->daftar_pemeriksaan();
+    $data['faktor'] = $this->M_faktor->get_faktor();
+		$data['pertanyaan'] = $this->M_kategori->get_kategori();
 		$data['username'] = $this->session->userdata('username');
 		$data['id_user'] = $this->session->userdata('id_user');
-
+//print_r($data['faktor']);exit;
 		$this->load->view('back/temp/head');
     $this->load->view('back/temp/sidebar');
     $this->load->view('back/pemeriksaan/input_pemeriksaan',$data);

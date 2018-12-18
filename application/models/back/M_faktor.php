@@ -63,6 +63,8 @@ class M_faktor extends CI_Model {
 	}
 
 	public function get_faktor() {
+		$this->db->select('*');
+		$this->db->where('flag','1');
    		$query = $this->db->get('tb_faktor');
 		return $query->result_array();
 	}
