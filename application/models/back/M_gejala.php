@@ -93,6 +93,15 @@ class M_gejala extends CI_Model {
       	$query = $this->db->get('tb_gejala');
     	return $query->num_rows();
 	}
+
+	public function getbobotBygejala($id_gejala){
+		//return $data;
+		$this->db->select('bobot_gj');
+      	$this->db->where('id_gejala', $id_gejala);
+      	$query = $this->db->get('tb_gejala');
+      	$result = $query->row();
+    	return $result->bobot_gj;
+	}
 	
 }
 ?>

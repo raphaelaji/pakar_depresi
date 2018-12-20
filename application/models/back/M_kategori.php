@@ -106,6 +106,23 @@ class M_kategori extends CI_Model {
       	$query = $this->db->get('tb_kategori');
     	return $query->num_rows();
 	}
+	public function getbobotBycat($id_kategori){
+		//return $data;
+		$this->db->select('bobot_kat');
+      	$this->db->where('id_kategori', $id_kategori);
+      	$query = $this->db->get('tb_kategori');
+      	$result = $query->row();
+    	return $result->bobot_kat;
+	}
+
+	public function getfaktorBycat($id_kategori){
+		//return $data;
+		$this->db->select('id_faktor');
+      	$this->db->where('id_kategori', $id_kategori);
+      	$query = $this->db->get('tb_kategori');
+      	$result = $query->row();
+    	return $result->id_faktor;
+	}
 	
 }
 ?>

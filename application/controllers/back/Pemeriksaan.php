@@ -17,15 +17,60 @@ class Pemeriksaan extends CI_Controller {
 	public function index(){
     $data['kategori'] = $this->M_pemeriksaan->get_kategori();
     $data['faktor'] = $this->M_faktor->get_faktor();
-		$data['pertanyaan'] = $this->M_kategori->get_kategori();
-		$data['username'] = $this->session->userdata('username');
-		$data['id_user'] = $this->session->userdata('id_user');
-//print_r($data['faktor']);exit;
-		$this->load->view('back/temp/head');
+	$data['pertanyaan'] = $this->M_kategori->get_kategori();
+	$data['username'] = $this->session->userdata('username');
+	$data['id_user'] = $this->session->userdata('id_user');
+	//print_r($data);exit;
+	$this->load->view('back/temp/head');
     $this->load->view('back/temp/sidebar');
     $this->load->view('back/pemeriksaan/input_pemeriksaan',$data);
     $this->load->view('back/temp/footer');
 		
+	}
+
+	public function tambah_aksi(){
+		
+		$prk['user_id'] = $this->session->userdata('id_user');
+		$prk['creation_date'] = date("Y-m-d H:i:s");
+		$id_pemeriksaan = $this->M_pemeriksaan->create_pemeriksaan($prk);
+		
+		$i=1;
+		while(isset($_POST['kategori'.$i]))
+    	{
+	        $id_kategori = $_POST['kategori'.$i];
+	        $id_faktor =  $this->M_kategori->getfaktorBycat($id_kategori);
+	        $id_gejala = isset($_POST['gejala-kategori'.$i]) ? $_POST['gejala-kategori'.$i] : null;
+	        // ==============================================================
+	        $bobot_kat = $this->M_kategori->getbobotBycat($id_kategori);
+	        if($id_gejala != null)
+	        {
+	         	$bobot_gejala = $this->M_gejala->getbobotByGejala($id_gejala);
+	     	}
+	     	else{
+	     		$bobot_gejala = 0;
+	     	}
+	     	// ============================================================== 
+	     	$total = $bobot_kat * $bobot_gejala;
+        	// ==============================================================
+			$data_detail = array(
+				'id_pemeriksaan'=>$id_pemeriksaan,
+				'id_faktor'=>$id_faktor,
+				'id_kategori' => $id_kategori,
+				'id_gejala' => $id_gejala,	
+				'total' => $total);//print_r($data_gejala);
+			$this->M_pemeriksaan->create_detail_pemeriksaan($data_detail);
+         $i++;
+         
+    	}
+    	$data = $this->M_pemeriksaan->countByFaktor($id_pemeriksaan);
+    	foreach ($data as $key => $value) {
+    		$data_faktor_pemeriksaan = array(
+    			'id_pemeriksaan'=>$value['id_pemeriksaan'],
+    			'id_faktor'=>$value['id_faktor'],
+    			'total'=>$value['total']
+    		);
+    		$this->M_pemeriksaan->tambah_faktor_pemeriksaan($data_faktor_pemeriksaan);
+    	}
 	}
 	
 	public function simpan_gejala(){
