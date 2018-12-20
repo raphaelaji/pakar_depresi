@@ -42,6 +42,7 @@ class M_kategori extends CI_Model {
 	// Model untuk menambah data kelas
 	public function tambah($data_kategori) {
 		$this->db->insert('tb_kategori', $data_kategori);
+		return $this->db->insert_id();
 	}
 	
 	// Update data kelas
@@ -105,6 +106,31 @@ class M_kategori extends CI_Model {
       	$this->db->where('id_kategori', $data_kategori['id_kategori']);
       	$query = $this->db->get('tb_kategori');
     	return $query->num_rows();
+	}
+	public function getbobotBycat($id_kategori){
+		//return $data;
+		$this->db->select('bobot_kat');
+      	$this->db->where('id_kategori', $id_kategori);
+      	$query = $this->db->get('tb_kategori');
+      	$result = $query->row();
+    	return $result->bobot_kat;
+	}
+
+	public function getfaktorBycat($id_kategori){
+		//return $data;
+		$this->db->select('id_faktor');
+      	$this->db->where('id_kategori', $id_kategori);
+      	$query = $this->db->get('tb_kategori');
+      	$result = $query->row();
+    	return $result->id_faktor;
+	}
+
+	public function getcatByfaktor($id_faktor){
+		//return $data;
+		$this->db->select('*');
+      	$this->db->where('id_faktor', $id_faktor);
+      	$query = $this->db->get('tb_kategori');
+		return $query->result_array();
 	}
 	
 }

@@ -19,6 +19,21 @@ class M_pemeriksaan extends CI_Model {
       return $q->result_array();
   	}
 
+  	public function create_pemeriksaan($prk){
+  		$this->db->insert('tb_pemeriksaan', $prk);
+  		return $this->db->insert_id();
+  	}
+
+  	public function create_detail_pemeriksaan($data_detail){
+  		$this->db->insert('tb_detail_pemeriksaan', $data_detail);
+  		//return $this->db->insert_id();
+  	}
+
+  	public function tambah_faktor_pemeriksaan($data_faktor_pemeriksaan){
+  		$this->db->insert('tb_faktor_pemeriksaan', $data_faktor_pemeriksaan);
+  		//return $this->db->insert_id();
+  	}
+
     public function get_kategori(){
     $query =$this->db->select('id_kategori')->distinct()->get('tb_gejala');
     return $query->result_array();
@@ -216,7 +231,17 @@ class M_pemeriksaan extends CI_Model {
       return $query->result_array();
     }
 
-
+    public function countByFaktor($id_pemeriksaan)
+    {
+    	$this->db->select('id_pemeriksaan,id_faktor');
+    	$this->db->select_sum('total');
+		$this->db->group_by('id_faktor'); 
+		$this->db->where('id_pemeriksaan',$id_pemeriksaan); 
+		//$this->db->order_by('total', 'desc'); 
+		$query = $this->db->get('tb_detail_pemeriksaan');
+		//$result = $query->row();
+    	return $query->result_array();
+    }
 	
 
 }

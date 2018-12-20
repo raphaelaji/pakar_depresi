@@ -40,13 +40,14 @@ $(document).on('click', '#tess',function(e){
 								<span>tess</span>
 								<span class="badge badge-danger"></span>
 							</a>
-						<form class="form-material" action="<?php echo base_url(). 'back/kategori/tambah_aksi'; ?>" method="POST">
+						<form class="form-material" action="<?php echo base_url(). 'back/pemeriksaan/tambah_aksi'; ?>" method="POST">
 							<table width="70%" border="0" cellspacing="0" cellpadding="0" class="table table-striped">
 								<?php $no=1;
+								$i=1;
 								foreach($pertanyaan as $pr) {?>
 								<div class="form-group">
 									<label for="" class="col-lg-6">
-										<input type="hidden" name="id_kategori<?php echo $pr['id_kategori']; ?>" id="id_kategori<?php echo $pr['id_kategori']; ?>" class="form-control" value="<?php echo $pr['id_kategori']; ?>" />
+										<input type="hidden" name="kategori<?php echo $i; ?>" id="id_kategori<?php echo $pr['id_kategori']; ?>" class="form-control" value="<?php echo $pr['id_kategori']; ?>" />
 										<?php echo $no++; ?>.&nbsp <?php echo $pr['kategori'];?>
 										
 									</label>
@@ -55,7 +56,7 @@ $(document).on('click', '#tess',function(e){
 									$list_gejala=$this->M_gejala->get_gejalaByCat($kategori);
 									foreach ($list_gejala as $key => $value) { ?>
 									<div class="custom-radio">
-										<input type="radio" class="custom-control-input" id="<?php echo $value['id_gejala'];?>" name="<?php echo $value['id_kategori']; ?>" value="<?php echo $value['id_gejala'];?>">
+										<input type="radio" class="custom-control-input" id="<?php echo $value['id_gejala'];?>" name="gejala-kategori<?php echo $i;?>" value="<?php echo $value['id_gejala'];?>">
 										<label class="custom-control-label" for="<?php echo $value['id_gejala'];?>"><?php echo $value['gejala']; ?></label>
 									</div>
 									<?php } ?>
@@ -63,7 +64,7 @@ $(document).on('click', '#tess',function(e){
 								</div>
 								<!-- Group of default radios - option 1 -->
 								
-								<?php }?>
+								<?php $i++;}?>
 							</table>
 							</br>
 							

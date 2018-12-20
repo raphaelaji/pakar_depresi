@@ -64,10 +64,23 @@ class M_faktor extends CI_Model {
 
 	public function get_faktor() {
 		$this->db->select('*');
-		$this->db->where('flag','1');
+		//$this->db->where('flag','1');
    		$query = $this->db->get('tb_faktor');
 		return $query->result_array();
 	}
+
+	public function getfaktorBygejala($id_gejala) {
+		//return $id_gejala;
+		$this->db->select('tb_faktor.id_faktor');
+  		$this->db->from('tb_faktor','tb_kategori','tb_gejala');
+  		$this->db->join('tb_kategori','tb_faktor.id_faktor = tb_kategori.id_faktor','left');
+  		$this->db->join('tb_gejala','tb_kategori.id_kategori = tb_gejala.id_kategori','left');
+  		$this->db->where('tb_gejala.id_gejala',$id_gejala);
+  		$query = $this->db->get();
+      	$result = $query->row();
+    	return $result->id_faktor;
+	}
+
 
     public function jumlah_faktor()
 	{
