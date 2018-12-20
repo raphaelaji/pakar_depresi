@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2018 at 08:09 AM
+-- Generation Time: Dec 20, 2018 at 04:31 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -35,6 +35,29 @@ CREATE TABLE `tb_aturan` (
   `id_premis3` int(5) NOT NULL,
   `keterangan` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_batas`
+--
+
+CREATE TABLE `tb_batas` (
+  `id_batas` int(5) NOT NULL,
+  `id_faktor` varchar(5) NOT NULL,
+  `bts_bwh` varchar(5) NOT NULL,
+  `bts_ats` varchar(5) NOT NULL,
+  `flag` enum('0','1') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_batas`
+--
+
+INSERT INTO `tb_batas` (`id_batas`, `id_faktor`, `bts_bwh`, `bts_ats`, `flag`) VALUES
+(1, 'F003', '0', '3.4', '1'),
+(2, 'F001', '0', '2.57', '1'),
+(3, 'F002', '0', '5.24', '1');
 
 -- --------------------------------------------------------
 
@@ -357,54 +380,6 @@ CREATE TABLE `tb_pemeriksaan` (
   `creation_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tb_pemeriksaan`
---
-
-INSERT INTO `tb_pemeriksaan` (`id_pemeriksaan`, `user_id`, `creation_date`) VALUES
-(1, 1, '2018-12-18'),
-(2, 1, '2018-12-20'),
-(3, 1, '2018-12-20'),
-(4, 1, '2018-12-20'),
-(5, 1, '2018-12-20'),
-(6, 1, '2018-12-20'),
-(7, 1, '2018-12-20'),
-(8, 1, '2018-12-20'),
-(9, 1, '2018-12-20'),
-(10, 1, '2018-12-20'),
-(11, 1, '2018-12-20'),
-(12, 1, '2018-12-20'),
-(13, 1, '2018-12-20'),
-(14, 1, '2018-12-20'),
-(15, 1, '2018-12-20'),
-(16, 1, '2018-12-20'),
-(17, 1, '2018-12-20'),
-(18, 1, '2018-12-20'),
-(19, 1, '2018-12-20'),
-(20, 1, '2018-12-20'),
-(21, 1, '2018-12-20'),
-(22, 1, '2018-12-20'),
-(23, 1, '2018-12-20'),
-(24, 1, '2018-12-20'),
-(25, 1, '2018-12-20'),
-(26, 1, '2018-12-20'),
-(27, 1, '2018-12-20'),
-(28, 1, '2018-12-20'),
-(29, 1, '2018-12-20');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_premis1`
---
-
-CREATE TABLE `tb_premis1` (
-  `id_premis1` int(5) NOT NULL,
-  `ket` varchar(20) NOT NULL,
-  `bts_bwh` float NOT NULL,
-  `bts_ats` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 -- --------------------------------------------------------
 
 --
@@ -485,6 +460,12 @@ ALTER TABLE `tb_aturan`
   ADD PRIMARY KEY (`id_aturan`);
 
 --
+-- Indexes for table `tb_batas`
+--
+ALTER TABLE `tb_batas`
+  ADD PRIMARY KEY (`id_batas`);
+
+--
 -- Indexes for table `tb_detail_pemeriksaan`
 --
 ALTER TABLE `tb_detail_pemeriksaan`
@@ -533,12 +514,6 @@ ALTER TABLE `tb_pemeriksaan`
   ADD PRIMARY KEY (`id_pemeriksaan`);
 
 --
--- Indexes for table `tb_premis1`
---
-ALTER TABLE `tb_premis1`
-  ADD PRIMARY KEY (`id_premis1`);
-
---
 -- Indexes for table `tb_premis2`
 --
 ALTER TABLE `tb_premis2`
@@ -565,6 +540,12 @@ ALTER TABLE `tb_user`
 --
 ALTER TABLE `tb_aturan`
   MODIFY `id_aturan` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_batas`
+--
+ALTER TABLE `tb_batas`
+  MODIFY `id_batas` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_detail_pemeriksaan`
@@ -594,13 +575,7 @@ ALTER TABLE `tb_pakar`
 -- AUTO_INCREMENT for table `tb_pemeriksaan`
 --
 ALTER TABLE `tb_pemeriksaan`
-  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `tb_premis1`
---
-ALTER TABLE `tb_premis1`
-  MODIFY `id_premis1` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_premis2`
