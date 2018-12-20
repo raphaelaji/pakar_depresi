@@ -43,6 +43,10 @@ class M_gejala extends CI_Model {
 	public function tambah($data_gejala) {
 		$this->db->insert('tb_gejala', $data_gejala);
 	}
+
+	public function tambah_batas($data) {
+		$this->db->insert('tb_batas', $data);
+	}
 	
 	// Update data kelas
 	public function edit($data_gejala) {
@@ -50,6 +54,11 @@ class M_gejala extends CI_Model {
 		return $this->db->update('tb_gejala', $data_gejala);
 	}
 	
+	public function edit_batas($cekdetail) {
+		//return $data;
+		$this->db->where('id_batas', $cekdetail->id_batas);
+		return $this->db->update('tb_batas', $cekdetail);
+	}
 	// Hapus data siswa
 	public function delete($id) {
 		$this->db->where('id_gejala',$id);
@@ -94,6 +103,27 @@ class M_gejala extends CI_Model {
     	return $query->num_rows();
 	}
 
+	public function get_batas_sama($id_faktor) 
+	{
+   		$this->db->select('*');
+      	$this->db->where('id_faktor', $id_faktor);
+      	$query = $this->db->get('tb_batas');
+      	return $query->row();
+
+	}
+
+	public function get_detail_sama($data) 
+	{
+		//return $data;
+   		$this->db->select('*');
+      	$this->db->where('id_faktor', $data['id_faktor']);
+      	$this->db->where('bts_bwh', $data['bts_bwh']);
+      	$this->db->where('bts_ats', $data['bts_ats']);
+      	$query = $this->db->get('tb_batas');
+      	return $query->row();
+
+	}
+
 	public function getbobotBygejala($id_gejala){
 		//return $data;
 		$this->db->select('bobot_gj');
@@ -101,6 +131,14 @@ class M_gejala extends CI_Model {
       	$query = $this->db->get('tb_gejala');
       	$result = $query->row();
     	return $result->bobot_gj;
+	}
+
+	public function getgejalaBycat($id_kategori){
+		//return $data;
+		$this->db->select('*');
+      	$this->db->where('id_kategori', $id_kategori);
+      	$query = $this->db->get('tb_gejala');
+		return $query->result_array();
 	}
 	
 }

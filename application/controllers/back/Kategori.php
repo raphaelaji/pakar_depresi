@@ -75,16 +75,20 @@ class Kategori extends CI_Controller {
 			'id_faktor' => $this->input->post('id_faktor'),
 			'kategori' => $this->input->post('kategori'),
 			'bobot_kat' => $this->input->post('bobot_kat')
-			);
+		);
 
 			//print_r($data_bobot);exit;
 			//cek kesamaan data jika sama maka tidak di simpan
-			$cek=$this->M_kategori->get_cari_sama($data_kategori);
+		$cek=$this->M_kategori->get_cari_sama($data_kategori);
 			//print_r($cek);exit;
-			if ($cek==0) {
+		if ($cek==0) {
+		$id_kategori = $this->input->post('id_kategori');
 		$this->M_kategori->tambah($data_kategori);
 		$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Berhasil menambah data</div>");
-		redirect('back/kategori');}
+		//redirect('back/kategori');
+		redirect('back/gejala/tambah?id_kategori='.$id_kategori);
+		}
+
 		else {
 			$this->session->set_flashdata('sukses', "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"\"><strong>error!</strong><br></i> data sudah ada</div>");
 			redirect('back/kategori/tambah');

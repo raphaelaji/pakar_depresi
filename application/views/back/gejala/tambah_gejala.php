@@ -49,6 +49,18 @@
                                       </div>
                                   </div>
 
+								<div class="form-group">
+                                  <label for="id_kategori" class="col-lg-2">kategori</label>
+                                    <div class="col-sm-4">
+                                      <select name="id_kategori" id="" class="form-control">
+                                      <option >--Pilih kategori--</option>
+                                      <?php foreach($kategori as $f) { ?>
+                                      <option value="<?php echo $f['id_kategori']?>"<?php if($cat == ($f['id_kategori'])){ echo 'selected'; } ?>><?php echo $f['kategori']?></option>
+                                      <?php } ?>
+                                      </select>
+                                    </div>
+                                </div>
+
                                   <div class="form-group">
                                   <label for="id_gejala" class="col-lg-2">Gejala</label>
                                     <div class="col-sm-4">
@@ -63,17 +75,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                  <label for="id_kategori" class="col-lg-2">kategori</label>
-                                    <div class="col-sm-4">
-                                      <select name="id_kategori" id="" class="form-control">
-                                      <option >--Pilih kategori--</option>
-                                      <?php foreach($kategori as $f) { ?>
-                                      <option value="<?php echo $f['id_kategori']?>"><?php echo $f['kategori']?></option>
-                                      <?php } ?>
-                                      </select>
-                                    </div>
-                                </div>
+                                
 
                                   </br>
                                   
