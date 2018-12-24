@@ -38,7 +38,7 @@ class M_pemeriksaan extends CI_Model {
     $query =$this->db->select('id_kategori')->distinct()->get('tb_gejala');
     return $query->result_array();
 
-  }
+  	}
 
     public function get_(){
     $query =$this->db->get('tb_pertanyaan');
@@ -50,6 +50,25 @@ class M_pemeriksaan extends CI_Model {
     return $query->result_array();
     }
 
+    public function getbatas()
+    {
+    	$this->db->select('*');
+    	$this->db->from('tb_batas');
+    	$this->db->join('tb_faktor', 'tb_faktor.id_faktor = tb_batas.id_faktor','Left');
+    	$this->db->where('tb_batas.flag','1');
+    	$query=$this->db->get('');
+    	return $query->result_array();
+    }
+
+    public function getfakpmr($id_pemeriksaan)
+    {
+    	$this->db->select('*');
+    	$this->db->from('tb_faktor_pemeriksaan');
+    	$this->db->join('tb_faktor', 'tb_faktor.id_faktor = tb_faktor_pemeriksaan.id_faktor','Left');
+    	$this->db->where('tb_faktor_pemeriksaan.id_pemeriksaan',$id_pemeriksaan);
+    	$query = $this->db->get('');
+    	return $query->result_array();
+    }
   	//Fungsi hapus data tabel
   	public function hapus_tmpgejala(){
     	return $this->db->empty_table('tmp_gejala');
