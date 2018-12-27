@@ -50,6 +50,11 @@ class M_pemeriksaan extends CI_Model {
     return $query->result_array();
     }
 
+    public function get_classdep()
+    {
+    	$query =$this->db->get('tb_klasifikasi_depresi');
+    	return $query->result_array();
+    }
     public function getbatas()
     {
     	$this->db->select('*');

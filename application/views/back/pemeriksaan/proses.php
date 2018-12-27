@@ -1,4 +1,4 @@
-============================================================== -->
+
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
 <script src="<?php echo base_url(); ?>asset/back/js/jquery-2.2.3.min.js"></script>
@@ -57,44 +57,54 @@ $(document).on('click', '#tess',function(e){
 									<fieldset>
 									  <legend>Batasan</legend>
 									  <table>
-										<tr><th>Variabel</th><th>Min Value</th><th>Max Value</th></tr>
+										<tr><th>Variabel</th><th>Minimum</th><th>Ringan</th><th>Sedang</th><th>Maximal</th></tr>
 										<?php 
 										$i = 0;
 										$depmin = 0;
 										$depmax = 0;
-										foreach ($batas as $key => $value) { ?>
+										$char = 'a';
+										foreach ($batas as $key => $value) { 
+											$mn[$char] = $value['bts_ats'];
+											$rin[$char] = $value['bts_ats']/3;
+											$sed[$char] = $value['bts_ats']/2;
+										?>
 										<tr>
 										  	<td><?php echo $value['faktor'] ?></td>
 										  	<td><input type='text' class='inptxt' name="min<?php echo $i; ?>" value='<?php echo $value['bts_bwh']; ?>' disabled="disabled"/></td>
+										  	<td><input type='text' class='inptxt' name="rin<?php echo $i; ?>" value='<?php echo $rin[$char]; ?>' disabled="disabled"/></td>
+										  	<td><input type='text' class='inptxt' name="rin<?php echo $i; ?>" value='<?php echo $sed[$char]; ?>' disabled="disabled"/></td>
 										  	<td><input type='text' class='inptxt' name="max<?php echo $i; ?>" value='<?php echo $value['bts_ats']; ?>' disabled="disabled"/></td>
 										</tr>
 										<?php
 										$depmin = $depmin+$value['bts_bwh'];
 										$depmax = $depmax+$value['bts_ats'];
+										
+										$char++;
 										$i++;
-										 } ?>
+										// print_r($mn);
+										// print_r($rin);
+										// print_r($sed);
+										 } //print_r($rin);?>
 
-										<tr>
+										<!-- <tr>
 										  	<td>Depresi</td>
 										  	<td><input type='text' class='inptxt' name='dep_min' value='<?php echo $depmin; ?>' disabled="disabled"/></td>
 										  	<td><input type='text' class='inptxt' name='dep_max' value='<?php echo $depmax; ?>' disabled="disabled"/></td>
-										</tr>
-										<!-- <tr>
-										  <td>gejala unit (x)</td>
-										  <td><input type='text' class='inptxt' name='x_min' value='<?=$x_min?>'/></td>
-										  <td><input type='text' class='inptxt' name='x_max' value='<?=$x_max?>'/></td>
-										</tr>
-										<tr>
-										  <td>gejala kelistrikan (y)</td>
-										  <td><input type='text' class='inptxt' name='y_min' value='<?=$y_min?>'/></td>
-										  <td><input type='text' class='inptxt' name='y_max' value='<?=$y_max?>'/></td>
-										</tr>
-										<tr>
-										  <td>kerusakan (z)</td>
-										  <td><input type='text' class='inptxt' name='z_min' value='<?=$z_min?>'/></td>
-										  <td><input type='text' class='inptxt' name='z_max' value='<?=$z_max?>'/></td>
 										</tr> -->
 									  </table>
+									</fieldset>
+									<fieldset>
+										<legend>Klasifikasi Depresi</legend>
+										<table>
+										<tr><th>nama</th><th>Batas bawah</th><th>Batas atas</th></tr>
+										<?php foreach ($classdep as $key => $value) { ?>
+										<tr>
+										  	<td><?php echo $value['nama'] ?></td>
+										  	<td><input type='text' class='inptxt' name="min<?php echo $i; ?>" value='<?php echo $value['nilai_klasifikasi_bawah']; ?>' disabled="disabled"/></td>
+										  	<td><input type='text' class='inptxt' name="max<?php echo $i; ?>" value='<?php echo $value['nilai_klasifikasi_atas']; ?>' disabled="disabled"/></td>
+										</tr>
+										<?php } ?>
+										</table>
 									</fieldset>
 									<fieldset>
 									  <legend>Inputan</legend>
@@ -122,23 +132,39 @@ $(document).on('click', '#tess',function(e){
 									<legend>[1] Pembentukan Himpunan Fuzzy (Fuzzyfication)</legend>
 									<table border='1'>
 										<?php 
-										$i=0;
-										$char ='W';
+										$i=1;
+										$char ='a';
 										foreach ($batas as $key => $value) { ?>
+										<?php
+											$bts_ats = $value['bts_ats'];
+											$bts_bwh = $value['bts_bwh'];
+											$kr = $bts_ats - $bts_bwh;
+											$rin = number_format($value['bts_ats']/3, 2);
+											$sed = number_format($value['bts_ats']/2, 2); ?>
 										  <tr>
-											<th colspan='4'><?php echo $value['faktor']; ?></th>
+											<th colspan='8'><?php echo $value['faktor']; ?></th>
 										  </tr>
 										  <tr>
-											<td rowspan='3'>&micro;<sub><?php echo $value['faktor']; ?> besar</sub>(<?php echo $char; ?>)</td>
-											<td>1 , <?php echo $char; ?><<?php echo $value['bts_bwh'];?></td>
-											<td rowspan='3'>&micro;<sub><?php echo $value['faktor']; ?> kecil</sub>(<?php echo $char; ?>)</td>
-											<td>0 , <?php echo $char; ?><<?php echo $value['bts_bwh'];?></td>
+											<td rowspan='3'>&micro;<sub><?php echo $value['faktor']; ?> minimal</sub>(<?php echo $char; ?>)</td>
+											<td></td>
+											<td rowspan='3'>&micro;<sub><?php echo $value['faktor']; ?> ringan</sub>(<?php echo $char; ?>)</td>
+											<td>0 , <?php echo $char; ?> < <?php echo $value['bts_bwh'];?> atau <?php echo $char; ?>><?php echo $sed;?></td>
+											<td rowspan='3'>&micro;<sub><?php echo $value['faktor']; ?> sedang</sub>(<?php echo $char; ?>)</td>
+											<td>0 , <?php echo $char; ?> < <?php echo $value['bts_bwh'];?> atau <?php echo $char; ?>><?php echo $sed;?></td>
+											<td rowspan='3'>&micro;<sub><?php echo $value['faktor']; ?> berat</sub>(<?php echo $char; ?>)</td>
+											<td>0 , <?php echo $char; ?><<?php echo $sed;?></td>
 										  </tr>
 										  <tr>
-											<td>(<?php echo $value['bts_ats'];?>-<?php echo $char; ?>)/<?php(echo $value['bts_ats'];- echo $value['bts_bwh'];)?> , <?php echo $value['bts_bwh'];?> &le; <?php echo $char; ?> &le;<?php echo $value['bts_ats'];?></td><td>(<?php echo $char;?>-<?php echo $value['bts_bwh'];?>)/<?php(echo $value['bts_ats'];- echo $value['bts_bwh'];)?> , <?php echo $value['bts_bwh'];?> &le; <?php echo $char;?> &le;<?php echo $value['bts_ats'];?></td>
+											<td>(<?php echo $rin;?>-<?php echo $char; ?>)/<?php echo $rin;?> , <?php echo $value['bts_bwh'];?> &le; <?php echo $char; ?> &le;<?php echo $rin;?></td>
+											<td>(<?php echo $char;?>-<?php echo $value['bts_bwh'];?>)/<?php echo $rin;?> , <?php echo $value['bts_bwh'];?> &le; <?php echo $char;?> &le;<?php echo $rin;?></td>
+											<td>(<?php echo $char;?>-<?php echo $rin; ?>)/<?php echo $rin;?> , <?php echo $rin;?> &le; <?php echo $char; ?> &le;<?php echo $value['bts_ats'];?></td>
+											<td>(<?php echo $char;?>-<?php echo $sed;?>)/<?php echo $rin;?> , <?php echo $sed;?> &le; <?php echo $char;?> &le;<?php echo $value['bts_ats'];?></td>
 										  </tr>
 										  <tr>
-											<td>0 , <?php echo $char;?>><?php echo $value['bts_ats'];?></td><td>1 , <?php echo $char;?>><?php echo $value['bts_ats'];?></td>
+											<td>0 , <?php echo $char;?>><?php echo $rin;?></td>
+											<td>(<?php echo $rin;?>-<?php echo $char;?>)/<?php echo $rin;?> , <?php echo $rin;?> &le; <?php echo $char;?> &le;<?php echo $sed;?></td>
+											<td>(<?php echo $value['bts_ats'];?>-<?php echo $char;?>)/<?php echo $rin;?> , <?php echo $sed;?> &le; <?php echo $char;?> &le;<?php echo $value['bts_ats'];?></td>
+											<td>1 , <?php echo $char;?>><?php echo $value['bts_ats'];?></td>
 										  </tr>
 										<!--   <tr>
 											<th colspan='4'>kelistrikan</th>
@@ -174,26 +200,76 @@ $(document).on('click', '#tess',function(e){
 										  	<?php foreach ($input as $key => $values) { 
 										  		if( $values['id_faktor'] == $value['id_faktor']){
 										  		?>
-											<td colspan='4'>
-											  unit: <?php echo $char;?>=<?php echo $values['total']?>;<br />
-											  <?php
-											  $ux_sedikit=($value['bts_ats']-$values['total'])/($value['bts_ats']-$value['bts_bwh']);
-											  //print_r($ux_sedikit);exit;
-											  $ux_besar=($values['total']-$value['bts_bwh'])/($value['bts_ats']-$value['bts_bwh']);
+											<td colspan='10'>
+											  <?php echo $value['faktor'];?> : <?php echo $char;?>=<?php echo $values['total']?>;<br />
+											  <?php 
+
+											  if(($values['total'] <= $value['bts_bwh']) || ($values['total'] <= $rin)){
+											  	 $ux_minimal[$char] =($rin-$values['total'])/$rin;?>
+											  	  &micro;<sub>  <?php echo $value['faktor'];?> minimal</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_minimal[$char]?>;<br />
+											  <?php }
+											  if($values['total'] > $rin)
+											  {
+											  	$ux_minimal[$char] = null;?>
+											  	 &micro;<sub>  <?php echo $value['faktor'];?> minimal</sub>(<?php echo $values['total']; ?>)=<?=$ux_sedikit[$char]?>;<br />
+											  <?php } 
+											  // ==============================================================
+											  if(($values['total'] < $value['bts_bwh']) && ($values['total'] < $sed)){
+											  	$ux_ringan[$char] = null;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=<?=$ux_ringan[$char]?>;<br />
+											  <?php }
+											  if(($value['bts_bwh'] <= $values['total'] ) && ($values['total'] <= $sed))
+											  {
+											  	$ux_ringan[$char] = ($values['total']-$value['bts_bwh'])/$rin;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
+											  <?php }
+											  if(($values['total']>= $rin) && ($values['total'] <= $sed)){
+											  	$ux_ringan[$char] = ($rin-$values['total'])/$rin;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
+
+											  <?php }
+											  // ==============================================================
+											  if(($values['total'] >= $value['bts_bwh']) or ($values['total'] > $value['bts_bwh']) or ($values['total'] > $sed)){
+											  	$ux_sedang[$char] = null;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=<?='NULL'?>;<br />
+											  <?php }
+											  if(($rin <= $values['total'] ) && ($values['total'] <= $value['bts_ats']))
+											  {
+											  	$ux_sedang[$char] = ($values['total']-$rin)/$rin;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $rin; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
+											  <?php }
+											  if(($sed <= $values['total']) && ($values['total'] <= $value['bts_ats'])){
+											  	$ux_sedang[$char] = ($value['bts_ats']-$values['total'])/$rin;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $value['total']; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
+											  <?php}
+											  // ======================================================================
+											  
+											  if(( $values['total'] >= $sed ) || ($values['total'] <= $value['bts_ats']))
+											  {
+
+											  	$ux_berat[$char] = ($values['total']-$sed)/$rin;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $sed; ?>)/<?php echo $rin;?>=<?=$ux_berat[$char]?>;<br />
+											  <?php }
+											  if($values['total'] < $sed){
+											  	$ux_berat[$char] = null;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?='NULL'?>;<br />
+											  <?php }
+											  if($values['total'] > $value['bts_ats']){
+											  	$ux_berat[$char] = 1;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?=$ux_berat[$char]?>;<br />
+											  <?php }
+
+											  // ======================================================================
+
+											  // $ux_sedikit[$char]=($value['bts_ats']-$values['total'])/($value['bts_ats']-$value['bts_bwh']);
+											  // //print_r($ux_sedikit);exit;
+											  // $ux_besar[$char]=($values['total']-$value['bts_bwh'])/($value['bts_ats']-$value['bts_bwh']);
 											  ?>
-												<?php
-												$bts_ats = $value['bts_ats'];
-												$bts_bwh = $value['bts_bwh'];
-												$kr = $bts_ats - $bts_bwh; ?>
-											  &micro;<sub>unit sedikit</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $values['total']; ?>)/<?php echo $kr;?>=<?=$ux_sedikit?>;<br />
-											  &micro;<sub>unit besar</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total']; ?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $kr;?>=<?=$ux_besar?>;<br />
-											 <!--  kelistrikan: y=<?=$y?>;<br />
-											  <?php
-											  $uy_sedikit=($y_max-$y)/($y_max-$y_min);
-											  $uy_besar=($y-$y_min)/($y_max-$y_min);
-											  ?>              
-											  &micro;<sub>kelistrikan sedikit</sub>(<?=$y?>)=(<?=$y_max?>-<?=$y?>)/<?=($y_max-$y_min)?>=<?=$uy_sedikit?>;<br/>
-											  &micro;<sub>kelistrikan besar</sub>(<?=$y?>)=(<?=$y?>-<?=$y_min?>)/<?=($y_max-$y_min)?>=<?=$uy_besar?>;<br/> -->
+											  
+											  
+												
+											  <!-- &micro;<sub>  <?php echo $value['faktor'];?> sedikit</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $values['total']; ?>)/<?php echo $kr;?>=<?=$ux_sedikit[$char]?>;<br />
+											  &micro;<sub>  <?php echo $value['faktor'];?> besar</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total']; ?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $kr;?>=<?=$ux_besar[$char]?>;<br /> -->
 											</td>
 											<?php }} ?>
 										  </tr>
