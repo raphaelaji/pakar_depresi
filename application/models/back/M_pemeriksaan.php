@@ -55,6 +55,15 @@ class M_pemeriksaan extends CI_Model {
     	$query =$this->db->get('tb_klasifikasi_depresi');
     	return $query->result_array();
     }
+    public function get_classdepBycon($con)
+    {
+    	//$query =$this->db->get('tb_klasifikasi_depresi');
+    	$this->db->select('*');
+	    $this->db->from('tb_klasifikasi_depresi');
+	    $this->db->where('nama',$con);
+	    $query=$this->db->get('');
+    	return $query->result();
+    }
     public function getbatas()
     {
     	$this->db->select('*');
@@ -108,8 +117,8 @@ class M_pemeriksaan extends CI_Model {
     	return $this->db->get();
   	}
   	
-  	public function simpantmp($data){
-  		$this->db->insert('tmp_gejala',$data);
+  	public function tambah_diagnosa($datadiagnosa){
+  		$this->db->insert('tb_diagnosa',$datadiagnosa);
   	}
 
   	public function update_tmpgejala($id_pakar,$dt_tmp){
@@ -266,6 +275,26 @@ class M_pemeriksaan extends CI_Model {
 		//$result = $query->row();
     	return $query->result_array();
     }
+
+    public function findaturan($data_cari)
+    {
+    	$data=implode(" AND ", $data_cari);//return $data;
+    	$this->db->select('*');
+        $this->db->from('tb_aturan');
+        $this->db->where('conditions',$data);
+        
+      $query = $this->db->get();
+      return $query->result_array();
+    }
+    public function cek_klas_depresi($data_batas) 
+	{
+   		$this->db->select('*');
+      	$this->db->where('nilai_klasifikasi_bawah <=', $data_batas);
+		$this->db->where('nilai_klasifikasi_atas >=', $data_batas);
+      	$query = $this->db->get('tb_klasifikasi_depresi');
+    	return $query->result();
+	}
+    
 	
 
 }

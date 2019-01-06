@@ -127,6 +127,7 @@ $(document).on('click', '#tess',function(e){
 									</form>
 									<?php
 									//if(isset($_POST['proses'])){
+//================================================= fuzikasi ========================================================
 									?>        
 									<fieldset>
 									<legend>[1] Pembentukan Himpunan Fuzzy (Fuzzyfication)</legend>
@@ -166,38 +167,12 @@ $(document).on('click', '#tess',function(e){
 											<td>(<?php echo $value['bts_ats'];?>-<?php echo $char;?>)/<?php echo $rin;?> , <?php echo $sed;?> &le; <?php echo $char;?> &le;<?php echo $value['bts_ats'];?></td>
 											<td>1 , <?php echo $char;?>><?php echo $value['bts_ats'];?></td>
 										  </tr>
-										<!--   <tr>
-											<th colspan='4'>kelistrikan</th>
-										  </tr>
+
 										  <tr>
-											<td rowspan='3'>&micro;<sub>kelistrikan besar</sub>(y)</td>
-											<td>1 , y<<?=$y_min?></td>
-											<td rowspan='3'>&micro;<sub>kelistrikan kecil</sub>(y)</td>
-											<td>0 , y<<?=$y_min?></td>
-										  </tr>
-										  <tr>
-											<td>(<?=$y_max?>-y)/<?=($y_max-$y_min)?> , <?=$y_min?> &le; y &le;<?=$y_max?></td><td>(y-<?=$y_min?>)/<?=($y_max-$y_min)?> , <?=$y_min?> &le; y &le;<?=$y_max?></td>
-										  </tr>
-										  <tr>
-											<td>0 , y><?=$y_max?></td><td>1 , y><?=$y_max?></td>
-										  </tr>
-										  <tr>
-											<th colspan='4'>kerusakan</th>
-										  </tr>
-										  <tr>
-											<td rowspan='3'>&micro;<sub>kerusakan besar</sub>(z)</td>
-											<td>1 , z<<?=$z_min?></td>
-											<td rowspan='3'>&micro;<sub>kerusakan kecil</sub>(z)</td>
-											<td>0 , z<<?=$z_min?></td>
-										  </tr>
-										  <tr>
-											<td>(<?=$z_max?>-z)/<?=($z_max-$z_min)?> , <?=$z_min?> &le; z &le;<?=$z_max?></td><td>(z-<?=$z_min?>)/<?=($z_max-$z_min)?> , <?=$z_min?> &le; z &le;<?=$z_max?></td>
-										  </tr>
-										  <tr>
-											<td>0 , z><?=$z_max?></td><td>1 , z><?=$z_max?></td>
-										  </tr> -->
-										  <tr>
-										  	<?php foreach ($input as $key => $values) { 
+										  	<?php 
+										  	$i =0;
+										  	$data_s=[];
+										  	foreach ($input as $key => $values) { 
 										  		if( $values['id_faktor'] == $value['id_faktor']){
 										  		?>
 											<td colspan='10'>
@@ -205,57 +180,246 @@ $(document).on('click', '#tess',function(e){
 											  <?php 
 
 											  if(($values['total'] <= $value['bts_bwh']) || ($values['total'] <= $rin)){
-											  	 $ux_minimal[$char] =($rin-$values['total'])/$rin;?>
+											  	 $ux_minimal[$char] =($rin-$values['total'])/$rin;
+											  	 $name = 'minimal';
+											  	 $name_min[$char]= $value['faktor'].' '.$name;
+											  	 $a=0;
+											  	 $c='a';
+											  	 foreach ($name_min as $key => $val) {
+											  	 		$ar[$val]=$ux_minimal[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar); ?>
 											  	  &micro;<sub>  <?php echo $value['faktor'];?> minimal</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_minimal[$char]?>;<br />
 											  <?php }
 											  if($values['total'] > $rin)
 											  {
-											  	$ux_minimal[$char] = null;?>
+											  	$ux_minimal[$char] = 0;
+											  	?>
 											  	 &micro;<sub>  <?php echo $value['faktor'];?> minimal</sub>(<?php echo $values['total']; ?>)=<?=$ux_sedikit[$char]?>;<br />
-											  <?php } 
+											  <?php 
+											 if($ux_minimal[$char]!= 0){
+											  	$name = 'minimal';
+											  	$name_min[$char]= $value['faktor'].' '.$name;
+											  }}
 											  // ==============================================================
 											  if(($values['total'] < $value['bts_bwh']) && ($values['total'] < $sed)){
-											  	$ux_ringan[$char] = null;?>
+											  	$ux_ringan[$char] = 0;
+											  	?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=<?=$ux_ringan[$char]?>;<br />
-											  <?php }
+											  <?php if($ux_rin[$char] != 0){
+											  	$name = 'ringan';
+											  	$name_rin[$char]= $value['faktor'].' '.$name;
+											  }}
 											  if(($value['bts_bwh'] <= $values['total'] ) && ($values['total'] <= $sed))
 											  {
-											  	$ux_ringan[$char] = ($values['total']-$value['bts_bwh'])/$rin;?>
+											  	$ux_ringan[$char] = ($values['total']-$value['bts_bwh'])/$rin;
+											  	?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
-											  <?php }
+											  <?php 
+											  if($ux_ringan[$char] != 0){
+											  $name = 'ringan';
+											  $name_rin[$char]= $value['faktor'].' '.$name;
+												 $a=0;
+											  	 $c='a';
+											  	 foreach ($name_rin as $key => $val) {
+											  	 		$ar[$val]=$ux_ringan[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);
+
+											  	 if(array_key_exists($value['faktor'],$faktor)){
+											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	 	//$faktor=array_push($faktor, "a");
+											  	 	$faktor = array_merge_recursive($faktor,$data);
+
+											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	 }
+											  	else{
+											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	}
+											  }}
+
 											  if(($values['total']>= $rin) && ($values['total'] <= $sed)){
-											  	$ux_ringan[$char] = ($rin-$values['total'])/$rin;?>
+											  	$ux_ringan[$char] = ($rin-$values['total'])/$rin;
+											  	$name = 'ringan';
+											  	$name_rin[$char]= $value['faktor'].' '.$name;?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
 
-											  <?php }
+											  <?php 
+											  if($ux_ringan[$char] != 0){
+											  $name = 'ringan';
+											  $name_rin[$char]= $value['faktor'].' '.$name;
+											     $a=0;
+											  	 $c='a';
+											  	 foreach ($name_rin as $key => $val) {
+											  	 		$ar[$val]=$ux_ringan[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);
+											  	 if(array_key_exists($value['faktor'],$faktor)){
+											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+
+											  	 	$faktor = array_merge_recursive($faktor,$data);
+
+											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	 }
+											  	else{
+											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	}
+											  }}
+
 											  // ==============================================================
-											  if(($values['total'] >= $value['bts_bwh']) or ($values['total'] > $value['bts_bwh']) or ($values['total'] > $sed)){
-											  	$ux_sedang[$char] = null;?>
-											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=<?='NULL'?>;<br />
-											  <?php }
+											  if(($values['total'] >= $value['bts_bwh']) or ($values['total'] > $sed)){
+											  	$ux_sedang[$char] = 0;
+											  	?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=<?=$ux_sedang[$char]?>;<br />
+											  <?php if($ux_sedang[$char] != 0){
+											  	$name = 'sedang';
+											  	$name_sed[$char]= $value['faktor'].' '.$name;
+											  }}
 											  if(($rin <= $values['total'] ) && ($values['total'] <= $value['bts_ats']))
 											  {
-											  	$ux_sedang[$char] = ($values['total']-$rin)/$rin;?>
+											  	$ux_sedang[$char] = ($values['total']-$rin)/$rin;
+											  	?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $rin; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
-											  <?php }
+											  <?php 
+											  if($ux_sedabg[$char] != 0){
+											  $name = 'sedang';
+											  $name_sed[$char]= $value['faktor'].' '.$name;
+											     $a=0;
+											  	 $c='a';
+											  	 foreach ($name_sed as $key => $val) {
+											  	 		$ar[$val]=$ux_sedang[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);
+											  	 if(array_key_exists($value['faktor'],$faktor)){
+											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+
+											  	 	$faktor = array_merge_recursive($faktor,$data);
+
+											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	 }
+											  	else{
+											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	}
+											  }}
+
 											  if(($sed <= $values['total']) && ($values['total'] <= $value['bts_ats'])){
-											  	$ux_sedang[$char] = ($value['bts_ats']-$values['total'])/$rin;?>
+											  	$ux_sedang[$char] = ($value['bts_ats']-$values['total'])/$rin;
+											  	$name = 'sedang';
+											  	$name_sed[$char]= $value['faktor'].' '.$name;?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $value['total']; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
-											  <?php}
+											  <?php
+											  if($ux_sedang[$char] != 0){
+											  $name = 'sedang';
+											  $name_sed[$char]= $value['faktor'].' '.$name;
+											     $a=0;
+											  	 $c='a';
+											  	 foreach ($name_sed as $key => $val) {
+											  	 		$ar[$val]=$ux_sedang[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);
+											  	if(array_key_exists($value['faktor'],$faktor)){
+											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+
+											  	 	$faktor = array_merge_recursive($faktor,$data);
+
+											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	 }
+											  	else{
+											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	}
+											  }}
 											  // ======================================================================
 											  
-											  if(( $values['total'] >= $sed ) || ($values['total'] <= $value['bts_ats']))
+											  if(( $values['total'] >= $sed ) && ($values['total'] <= $value['bts_ats']))
 											  {
 
-											  	$ux_berat[$char] = ($values['total']-$sed)/$rin;?>
+											  	$ux_berat[$char] = ($values['total']-$sed)/$rin;
+											  	?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $sed; ?>)/<?php echo $rin;?>=<?=$ux_berat[$char]?>;<br />
-											  <?php }
+											  <?php  if($ux_berat[$char] != 0){
+											  $name = 'berat';
+											  $name_brt[$char]= $value['faktor'].' '.$name;
+											     $a=0;
+											  	 $c='a';
+											  	 foreach ($name_brt as $key => $val) {
+											  	 		$ar[$val]=$ux_berat[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);
+											  	if(array_key_exists($value['faktor'],$faktor)){
+											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+
+											  	 	$faktor = array_merge_recursive($faktor,$data);
+
+											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	 }
+											  	else{
+											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	}
+											  }}
+
 											  if($values['total'] < $sed){
-											  	$ux_berat[$char] = null;?>
-											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?='NULL'?>;<br />
-											  <?php }
+											 	$ux_berat[$char] = 0;?>
+											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?=$ux_berat[$char]?>;<br />
+											  <?php if($ux_berat[$char]!= 0 ){
+											  	$name = 'berat';
+											  	$name_brt[$char]= $value['faktor'].' '.$name;
+											  }}
+
 											  if($values['total'] > $value['bts_ats']){
-											  	$ux_berat[$char] = 1;?>
+											  	$ux_berat[$char] = 1;
+											  	$name = 'berat';
+											  	$name_brt[$char]= $value['faktor'].' '.$name;
+											  	$a=0;
+											  	$c='a';
+											  	 foreach ($name_brt as $key => $val) {
+											  	 		$ar[$val]=$ux_berat[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 if(array_key_exists($value['faktor'],$faktor)){
+											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+
+											  	 	$faktor = array_merge_recursive($faktor,$data);
+
+											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	 }
+											  	else{
+											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	}
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?=$ux_berat[$char]?>;<br />
 											  <?php }
 
@@ -271,79 +435,258 @@ $(document).on('click', '#tess',function(e){
 											  <!-- &micro;<sub>  <?php echo $value['faktor'];?> sedikit</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $values['total']; ?>)/<?php echo $kr;?>=<?=$ux_sedikit[$char]?>;<br />
 											  &micro;<sub>  <?php echo $value['faktor'];?> besar</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total']; ?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $kr;?>=<?=$ux_besar[$char]?>;<br /> -->
 											</td>
-											<?php }} ?>
+											<?php
+											}}?>
 										  </tr>
 										  <?php 
 										  $char++;
-										} ?>
+										} //print_r($ux_ringan);
+										$str_klas=[];
+										if(isset($name_min)){
+											$i=0;
+											
+											foreach ($name_min as $key => $value) {
+												$datas[$i] = $value;
+												$i++;
+												
+											}
+										$str_klas=array_merge($str_klas, $datas);
+										//print_r($name_min);
+										}
+										if(isset($name_rin)){
+											$i=0;
+											
+											foreach ($name_rin as $key => $value) {
+												$datas[$i] = $value;
+												$i++;
+												
+											}
+										$str_klas=array_merge($str_klas, $datas);
+										//print_r($name_rin);
+										}
+										if(isset($name_sed)){
+											$i=0;
+											
+											foreach ($name_sed as $key => $value) {
+												$datas[$i] = $value;
+												$i++;
+												
+											}
+										$str_klas=array_merge($str_klas, $datas);
+										//print_r($name_sed);
+										}
+										if(isset($name_brt)){
+											$i=0;
+											
+											foreach ($name_brt as $key => $value) {
+												$datas[$i] = $value;
+												$i++;
+												
+											}
+										$str_klas=array_merge($str_klas, $datas);
+										//print_r($name_brt);
+										}
+										//print_r($data);
+										//seleksi per faktor
+										//print_r($faktor);
+//==================================================== kombinasi ====================================================
+										function allSubsets($set, $size) {     
+										    $subsets = [];
+										    if ($size == 1) {
+										        return array_map(function ($v) { return [$v]; },$set);
+										    }
+										    foreach (allSubsets($set,$size-1) as $subset) {
+										        foreach ($set as $element) {
+										            if (!in_array($element,$subset)) {
+										                $newSet = array_merge($subset,[$element]);
+										                sort($newSet);
+										                if (!in_array($newSet,$subsets)) {
+										                    $subsets[] = array_merge($subset,[$element]);
+										                }
+										            }
+										        }
+										    }
+										    return $subsets;
+
+										}
+
+										 //$myset = [ "A","B","C", "D", "E" ];   
+										 $combine=allSubsets($str_klas,3);
+										 //cegah redudant
+										 $combine = array_unique($combine, SORT_REGULAR);
+										 //print_r($data);exit;
+										 $totalcomb=count($combine);
+//=================================================== end kombinasi ===================================================
+										 //print_r($totalcomb);
+										 
+										// example
+										// $chars = array('a', 'b', 'c','d','e','f');
+										// $output = sampling($str_klas, 3);
+										// var_dump($output);
+										//hasil seleksi semua kelas
+										//print_r($str_klas);
+										//array hasil yang lebih dari 0
+										print_r($data_s);
+										?>
 									</table>
 								  </fieldset>
+<!-- ============================================== end fuzzyfikasi ===================================================-->
 								  <fieldset>
 									<legend>[2] Penerapan Fungsi Implikasi</legend>
 									<p>Nilai &alpha;-predikat dan Z dari setiap aturan</p>
-									<p><strong>Rule 1 :</strong><em>        IF unit sedikit and kelistrikan besar THEN kerusakan barang sedikit</em><br />
 									<?php
-									$a_pred1=min($ux_sedikit,$uy_besar);
-									$z1=$z_max-$a_pred1*($z_max-$z_min);
+									
+										 foreach ($combine as $dt) {
+										 	$data_cari=$dt;
+										 	$get_aturan=$this->M_pemeriksaan->findaturan($data_cari);
+										 	if(!empty($get_aturan)){
+										 		$noaturan=1;
+										 		foreach ($get_aturan as $atr) {
+										 			$da=explode(" AND ", $atr['conditions']);
+										 			//print_r($da);
+										 	
+												 	foreach ($da as $valperdt) {
+												 		//print_r($valperdt);
+												 		$result[]=isset($data_s[$valperdt]) ? $data_s[$valperdt] : null;
+												 	}?>
+												 	<p><strong>Rule <?php echo $noaturan;?> :</strong><em> IF <?php echo $atr['conditions']; ?> THEN <?php echo $atr['hasil']; ?> </em><br />
+												 	<?php
+												 	//print_r($result);
+												 	
+												 	//print_r($datamin);?>
+												 	&alpha;-predikat<sub><?php echo $noaturan; ?></sub>=
+												 		<?php
+												 		$totarr = count($da);
+												 		$nom = 1;
+												 		foreach ($da as $valperdt) {?>
+														 	&micro;<sub><?php echo $valperdt; ?></sub>
+														 	<?php if($nom !== $totarr){?>
+														 	 <big>&cap;</big>
+												 		<?php $nom++;}
+												 		}?> <br />
+
+													  = min(&micro;
+													  <?php  
+												 		$nom = 1;
+													  foreach ($da as $valperdt) {?>
+														 	&micro;<sub><?php echo $valperdt; ?></sub>
+														 	(<?php echo $data_s[$valperdt]; ?>) 
+														 	<?php if($nom !== $totarr){?>
+														 	 <big>&cap;</big>
+												 		<?php $nom++;}}?>
+													  <br />
+													  = min(
+													  <?php 
+													  $nom = 1;
+													  foreach ($da as $valperdt) {?>
+														 	<?php echo $data_s[$valperdt]; ?> 
+														 	<?php if($nom !== $totarr){?>
+														 	 ,
+												 		<?php $nom++;}}?>)
+													  <br />
+													  <?php $datamin = min($result);
+													  $a_predikat[]=$datamin;?>
+													  = <?php echo $datamin; ?>
+													  <br />
+													<!-- cari himpunan z dari hasil then --> 
+													<?php 
+													$con = $atr['hasil'];
+													$classdep = $this->M_pemeriksaan->get_classdepBycon($con); 
+													foreach ($classdep as $ke) {
+														$z_max = $ke->nilai_klasifikasi_atas;
+														$z_min = $ke->nilai_klasifikasi_bawah;
+													}
+													//print_r($z_max);exit;
+													$z=$z_max-$datamin*($z_max-$z_min);
+													$data_z[]=$z;
+													?>
+													Dari himpunan <?php echo $atr['hasil']; ?> : (<?=$z_max?>-z<sub><?php echo $noaturan ; ?></sub>)/<?=($z_max-$z_min)?>=<?=$datamin?><br/>
+													diperoleh <strong>z<sub><?php echo $noaturan ; ?></sub></strong>= <?=$z?>
+												 	<?php $noaturan++;
+										 		}
+											}
+										 	//echo '</br>';
+										 	// if (in_array($dt,$data_s)){
+										 	// 	print_r('bener');
+										 	// }
+										 	
+										 	//$a++;
+										 }
 									?>
-									&alpha;-predikat<sub>1</sub>=&micro;<sub>unit sedikit</sub> <big>&cap;</big> &micro;<sub>kelistrikan besar</sub><br />
-									  =min(&micro;<sub>unit sedikit</sub>(<?=$x?>) <big>&cap;</big> &micro;<sub>kelistrikan besar</sub>(<?=$y?>))<br />
-									  =min(<?=$ux_sedikit?>,<?=$uy_besar?>)<br />
-									  =<?=$a_pred1?><br />
-									Dari himpunan kerusakan barang sedikit: (<?=$z_max?>-z<sub>1</sub>)/<?=($z_max-$z_min)?>=<?=$a_pred1?><br/>
-									diperoleh <strong>z<sub>1</sub></strong>=<?=$z1?>
-									</p>
-									<p><strong>Rule 2 :</strong><em>IF unit sedikit and kelistrikan sedikit THEN kerusakan barang sedikit</em><br />
-									<?php
-									$a_pred2=min($ux_sedikit,$uy_sedikit);
-									$z2=$z_max-$a_pred2*($z_max-$z_min);
-									?>
-									&alpha;-predikat<sub>2</sub>=&micro;<sub>unit sedikit</sub> <big>&cap;</big> &micro;<sub>kelistrikan sedikit</sub><br />
-									  =min(&micro;<sub>unit sedikit</sub>(<?=$x?>) <big>&cap;</big> &micro;<sub>kelistrikan sedikit</sub>(<?=$y?>))<br />
-									  =min(<?=$ux_sedikit?>,<?=$uy_sedikit?>)<br />
-									  =<?=$a_pred2?><br />
-									Dari himpunan kerusakan barang sedikit: (<?=$z_max?>-z<sub>2</sub>)/<?=($z_max-$z_min)?>=<?=$a_pred2?><br/>
-									diperoleh <strong>z<sub>2</sub></strong>=<?=$z2?>
-									</p>
-									<p><strong>Rule 3 :</strong><em>IF unit besar and kelistrikan besar THEN kerusakan barang besar</em><br />
-									<?php
-									$a_pred3=min($ux_besar,$uy_besar);
-									$z3=$a_pred3*($z_max-$z_min)-$z_min;
-									?>
-									&alpha;-predikat<sub>2</sub>=&micro;<sub>unit besar</sub> <big>&cap;</big> &micro;<sub>kelistrikan besar</sub><br />
-									  =min(&micro;<sub>unit besar</sub>(<?=$x?>) <big>&cap;</big> &micro;<sub>kelistrikan besar</sub>(<?=$y?>))<br />
-									  =min(<?=$ux_besar?>,<?=$uy_besar?>)<br />
-									  =<?=$a_pred3?><br />
-									Dari himpunan kerusakan barang besar: (z<sub>3</sub>-<?=$z_min?>)/<?=($z_max-$z_min)?>=<?=$a_pred3?><br/>
-									diperoleh <strong>z<sub>3</sub></strong>=<?=$z3?>
-									</p>
-									<p><strong>Rule 4 :</strong><em>IF unit besar and kelistrikan sedikit THEN kerusakan barang besar</em><br />
-									<?php
-									$a_pred4=min($ux_besar,$uy_sedikit);
-									$z4=$a_pred4*($z_max-$z_min)-$z_min;
-									?>
-									&alpha;-predikat<sub>2</sub>=&micro;<sub>unit besar</sub> <big>&cap;</big> &micro;<sub>kelistrikan sedikit</sub><br />
-									  =min(&micro;<sub>unit besar</sub>(<?=$x?>) <big>&cap;</big> &micro;<sub>kelistrikan sedikit</sub>(<?=$y?>))<br />
-									  =min(<?=$ux_besar?>,<?=$uy_sedikit?>)<br />
-									  =<?=$a_pred4?><br />
-									Dari himpunan kerusakan barang besar: (z<sub>4</sub>-<?=$z_min?>)/<?=($z_max-$z_min)?>=<?=$a_pred4?><br/>
-									diperoleh <strong>z<sub>4</sub></strong>=<?=$z4?>
-									</p>
 								  </fieldset>
+								  <!-- ====================== defuzification ============================== -->
 								  <fieldset>
 									<legend>Defuzzyfication</legend>
 									<?php
-									$n=$a_pred1*$z1+$a_pred2*$z2+$a_pred3*$z3+$a_pred4*$z4;
-									$d=$a_pred1+$a_pred2+$a_pred3+$a_pred4;
+									$totalarray = count($a_predikat);
+									//$n=array_sum($data_z);
+									foreach ($a_predikat as $keyz=> $pre) { 
+								  		$totals[]= $pre*$data_z[$keyz];
+								  	}
+								  	$n=array_sum($totals);
+									$d=array_sum($a_predikat);
 									$z=$n/$d;
 									?>
 									<p>Menghitung z akhir dengan merata-rata semua z berbobot</p>
-								  <p>z=(&alpha;-predikat<sub>1</sub>*z<sub>1</sub>+&alpha;-predikat<sub>2</sub>*z<sub>2</sub>+&alpha;-predikat<sub>3</sub>*z<sub>3</sub>+&alpha;-predikat<sub>4</sub>*z<sub>4</sub>)/(&alpha;-predikat<sub>1</sub>+&alpha;-predikat<sub>2</sub>+&alpha;-predikat<sub>3</sub>+&alpha;-predikat<sub>4</sub>)<br/>
-									=(<?=$a_pred1?>*<?=$z1?>+<?=$a_pred2?>*<?=$z2?>+<?=$a_pred3?>*<?=$z3?>+<?=$a_pred4?>*<?=$z4?>)/(<?=$a_pred1?>+<?=$a_pred2?>+<?=$a_pred3?>+<?=$a_pred4?>)<br/>
-									=<?=$n?>/<?=$d?><br/>
-									=<?=$z?></p>
-									<p>Jadi jumlah yang harus dikerusakan (<strong>z</strong>) =<strong><?=$z?></strong></p>
+								  <p>z= (
+								  	<?php
+								  	$num = 1; 
+								  	foreach ($a_predikat as $keys) { ?>
+								  		&alpha;-predikat<sub><?php echo $num; ?></sub>*z<sub>1</sub>
+								  		<?php if ($num != $totalarray){?>
+											+
+								  		<?php }
+								  	} ?>
+								  	)
+								  /(<?php
+								  	$num=1;
+								  foreach ($a_predikat as $keys) { ?>
+								  		&alpha;-predikat<sub><?php echo $num; ?></sub>
+								  		<?php if ($num != $totalarray){?>
+											+
+								  		<?php }
+								  	} ?> )<br/>
+									= (
+									<?php
+									$num=1;
+									foreach ($a_predikat as $keyz=> $pre) { ?>
+								  		<?php echo $pre; ?>*<?php echo $data_z[$keyz]; ?>
+								  		<?php if ($num != $totalarray){?>
+											+
+								  		<?php }
+								  	} ?>
+									)/(
+									<?php
+									$num=1;
+									foreach ($a_predikat as $keyz=> $pre) { ?>
+								  		<?php echo $pre; ?>
+								  		<?php if ($num != $totalarray){?>
+											+
+								  		<?php }
+								  	} ?>)<br/>
+									= <?=$n?>/<?=$d?><br/>
+									= <?=$z?></p>
+									<p>Jadi total nilai depresi (<strong>z</strong>) =<strong><?=$z?></strong></p>
 								  </fieldset>
+								  <!-- cek klas depresi -->
+								  <?php 
+								  $data_batas = $z;
+								  $cekklas= $this->M_pemeriksaan->cek_klas_depresi($data_batas);
+								  foreach ($cekklas as $class) {
+								   	$hasil_class = $class->id_klass;
+								   } ?>
+								  <!-- input ke diagnosa -->
+								  <?php
+								  $datadiagnosa = array(
+								  	'id_pemeriksaan'=> $id_pemeriksaan,
+								  	'total_akhir'=> $z,
+								  	'id_klass_dep'=> $hasil_class,
+								  	'user_id'=> $user_id
+								  );
+								  //print_r($datadiagnosa);exit;
+								  $input= $this->M_pemeriksaan->tambah_diagnosa($datadiagnosa);
+								  ?>
+
 							<?php
 							//}
 							?>      
