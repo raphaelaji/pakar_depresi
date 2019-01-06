@@ -29,7 +29,7 @@ class Pemeriksaan extends CI_Controller {
 	}
 
 	public function tambah_aksi(){
-		
+
 		$prk['user_id'] = $this->session->userdata('id_user');
 		$prk['creation_date'] = date("Y-m-d H:i:s");
 		$id_pemeriksaan = $this->M_pemeriksaan->create_pemeriksaan($prk);
@@ -71,6 +71,26 @@ class Pemeriksaan extends CI_Controller {
     		);
     		$this->M_pemeriksaan->tambah_faktor_pemeriksaan($data_faktor_pemeriksaan);
     	}
+  //   	================ id pemeriksaan ===========
+     	$data['id_pemeriksaan'] = $id_pemeriksaan ; //sementara
+    	//============= batas =================
+    	//=================== user id ===============
+    	$data['user_id'] = $this->session->userdata('id_user');
+    	//===============================
+    	$data['batas'] = $this->M_pemeriksaan->getbatas();
+    	//=====================================
+    	
+    	//============= input =================
+    	$id_pemeriksaan = 1;
+		$data['input'] = $this->M_pemeriksaan->getfakpmr($id_pemeriksaan);
+    	//=====================================
+    	$data['classdep'] = $this->M_pemeriksaan->get_classdep();
+    	//=====================================
+
+	    $this->load->view('back/temp/head');
+	    $this->load->view('back/temp/sidebar');
+	    $this->load->view('back/pemeriksaan/proses',$data);
+	    $this->load->view('back/temp/footer');
 	}
 	
 	public function simpan_gejala(){

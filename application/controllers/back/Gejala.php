@@ -212,6 +212,70 @@ class Gejala extends CI_Controller {
 			);
 //print_r($data_user);exit;
 	$this->M_gejala->edit($data_gejala);
+	//==============================================================
+		$id_gejala = $this->input->post('id_gejala');
+		$id_faktor = $this->M_faktor->getfaktorBygejala($id_gejala);
+		$cat = $this->M_kategori->getcatByfaktor($id_faktor);
+		$max_cat = 0;
+		$min_cat = 0;
+		foreach ($cat as $key => $value) {
+		 	//var_dump($max_cat);
+		 	$bobot_kat = $value['bobot_kat'];
+		 	$id_kategori = $value['id_kategori'];
+		 	$gejala = $this->M_gejala->getgejalaBycat($id_kategori);
+		 	$bobot_max_gj = 0;
+		 	$bobot_min_gj = 0;
+		 	$max_gj = 0;
+		 	$min_gj = 0;
+		 	//var_dump($bobot_kat);
+		 	$bobot_gj =[];
+		 	$a=0;
+		 	foreach ($gejala as $key => $value) {
+		 		//var_dump($bobot_max_gj);
+		 		$bobot_gj[$a] = $value['bobot_gj'];
+		 		//var_dump($bobot_gj);
+		 		if($bobot_gj > $max_gj){
+		 			$max_gj = $bobot_gj[$a];
+		 			
+		 			$bobot_max_gj_1 = $bobot_kat * $bobot_gj[$a];
+			 		if($bobot_max_gj_1 > $bobot_max_gj){
+			 			$bobot_max_gj = $bobot_max_gj_1;
+			 		}
+		 		}
+		 		if($bobot_gj < $min_gj){
+		 			$min_gj = $bobot_gj[$a];
+		 			
+		 			$min_gj_1 = $bobot_kat * $bobot_gj[$a];
+			 		if($min_gj_1 < $bobot_min_gj){
+			 			$bobot_min_gj = $min_gj_1;
+			 		}
+		 		}
+		 		
+		 		$a++;
+		 	}
+		 	$max_cat = $max_cat + $bobot_max_gj;
+		 	$min_cat = $min_cat + $bobot_min_gj;
+		 	//var_dump($bobot_max_gj);
+		 	
+		 }//var_dump($max_cat);
+		 //var_dump($min_cat);
+	 	$data = array(
+	 		'id_faktor'=>$id_faktor,
+	 		'bts_bwh'=>$min_cat,
+	 		'bts_ats'=>$max_cat,
+	 		'flag'=>'1'
+	 	);
+	 	//var_dump($data);
+	 	$cekdetail = $this->M_gejala->get_detail_sama($data);
+	 	//print_r($cekdetail);exit;
+	 	if(empty($cekdetail)){
+	 		$this->M_gejala->tambah_batas($data);
+	 	}
+	 	else{
+	 		$cekdetail->flag = '1';
+	 		$this->M_gejala->edit_batas($cekdetail);
+	 	}
+	 	//===============================================================================================
 	$this->session->set_flashdata('sukses', "<div class=\"alert alert-success\" id=\"alert\"><i class=\"\"></i> Edit User Berhasil</div>");
 	redirect('back/gejala');}
 	}

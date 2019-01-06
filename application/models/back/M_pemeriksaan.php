@@ -38,7 +38,7 @@ class M_pemeriksaan extends CI_Model {
     $query =$this->db->select('id_kategori')->distinct()->get('tb_gejala');
     return $query->result_array();
 
-  }
+  	}
 
     public function get_(){
     $query =$this->db->get('tb_pertanyaan');
@@ -50,6 +50,39 @@ class M_pemeriksaan extends CI_Model {
     return $query->result_array();
     }
 
+    public function get_classdep()
+    {
+    	$query =$this->db->get('tb_klasifikasi_depresi');
+    	return $query->result_array();
+    }
+    public function get_classdepBycon($con)
+    {
+    	//$query =$this->db->get('tb_klasifikasi_depresi');
+    	$this->db->select('*');
+	    $this->db->from('tb_klasifikasi_depresi');
+	    $this->db->where('nama',$con);
+	    $query=$this->db->get('');
+    	return $query->result();
+    }
+    public function getbatas()
+    {
+    	$this->db->select('*');
+    	$this->db->from('tb_batas');
+    	$this->db->join('tb_faktor', 'tb_faktor.id_faktor = tb_batas.id_faktor','Left');
+    	$this->db->where('tb_batas.flag','1');
+    	$query=$this->db->get('');
+    	return $query->result_array();
+    }
+
+    public function getfakpmr($id_pemeriksaan)
+    {
+    	$this->db->select('*');
+    	$this->db->from('tb_faktor_pemeriksaan');
+    	$this->db->join('tb_faktor', 'tb_faktor.id_faktor = tb_faktor_pemeriksaan.id_faktor','Left');
+    	$this->db->where('tb_faktor_pemeriksaan.id_pemeriksaan',$id_pemeriksaan);
+    	$query = $this->db->get('');
+    	return $query->result_array();
+    }
   	//Fungsi hapus data tabel
   	public function hapus_tmpgejala(){
     	return $this->db->empty_table('tmp_gejala');
@@ -84,8 +117,8 @@ class M_pemeriksaan extends CI_Model {
     	return $this->db->get();
   	}
   	
-  	public function simpantmp($data){
-  		$this->db->insert('tmp_gejala',$data);
+  	public function tambah_diagnosa($datadiagnosa){
+  		$this->db->insert('tb_diagnosa',$datadiagnosa);
   	}
 
   	public function update_tmpgejala($id_pakar,$dt_tmp){
@@ -242,6 +275,26 @@ class M_pemeriksaan extends CI_Model {
 		//$result = $query->row();
     	return $query->result_array();
     }
+
+    public function findaturan($data_cari)
+    {
+    	$data=implode(" AND ", $data_cari);//return $data;
+    	$this->db->select('*');
+        $this->db->from('tb_aturan');
+        $this->db->where('conditions',$data);
+        
+      $query = $this->db->get();
+      return $query->result_array();
+    }
+    public function cek_klas_depresi($data_batas) 
+	{
+   		$this->db->select('*');
+      	$this->db->where('nilai_klasifikasi_bawah <=', $data_batas);
+		$this->db->where('nilai_klasifikasi_atas >=', $data_batas);
+      	$query = $this->db->get('tb_klasifikasi_depresi');
+    	return $query->result();
+	}
+    
 	
 
 }
