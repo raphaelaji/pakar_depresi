@@ -81,7 +81,7 @@ class Pemeriksaan extends CI_Controller {
     	//=====================================
     	
     	//============= input =================
-    	$id_pemeriksaan = 1;
+    	//$id_pemeriksaan = 1;
 		$data['input'] = $this->M_pemeriksaan->getfakpmr($id_pemeriksaan);
     	//=====================================
     	$data['classdep'] = $this->M_pemeriksaan->get_classdep();
