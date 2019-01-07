@@ -200,22 +200,22 @@ $(document).on('click', '#tess',function(e){
 											  {
 											  	$ux_minimal[$char] = 0;
 											  	?>
-											  	 &micro;<sub>  <?php echo $value['faktor'];?> minimal</sub>(<?php echo $values['total']; ?>)=<?=$ux_sedikit[$char]?>;<br />
+											  	 &micro;<sub>  <?php echo $value['faktor'];?> minimal</sub>(<?php echo $values['total']; ?>)=<?=$ux_minimal[$char]?>;<br />
 											  <?php 
-											 if($ux_minimal[$char]!= 0){
+											 	if($ux_minimal[$char]!= 0){
 											  	$name = 'minimal';
 											  	$name_min[$char]= $value['faktor'].' '.$name;
 											  }}
 											  // ==============================================================
-											  if(($values['total'] < $value['bts_bwh']) && ($values['total'] < $sed)){
+											  if(($values['total'] < $value['bts_bwh']) or ($values['total'] > $sed)){
 											  	$ux_ringan[$char] = 0;
 											  	?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=<?=$ux_ringan[$char]?>;<br />
-											  <?php if($ux_rin[$char] != 0){
+											  <?php 
 											  	$name = 'ringan';
 											  	$name_rin[$char]= $value['faktor'].' '.$name;
-											  }}
-											  if(($value['bts_bwh'] <= $values['total'] ) && ($values['total'] <= $sed))
+											  }
+											  else if(($value['bts_bwh'] <= $values['total']) && ($values['total'] <= $rin))
 											  {
 											  	$ux_ringan[$char] = ($values['total']-$value['bts_bwh'])/$rin;
 											  	?>
@@ -235,27 +235,27 @@ $(document).on('click', '#tess',function(e){
 											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
 											  	 $data_s=array_merge($data_s,$ar);
 
-											  	 if(array_key_exists($value['faktor'],$faktor)){
-											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
-											  	 	//$faktor=array_push($faktor, "a");
-											  	 	$faktor = array_merge_recursive($faktor,$data);
+											  	//  if(array_key_exists($value['faktor'],$faktor)){
+											  	//  	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	//  	//$faktor=array_push($faktor, "a");
+											  	//  	$faktor = array_merge_recursive($faktor,$data);
 
-											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
-											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
-											  	 }
-											  	else{
-											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
-											  	}
+											  	//  	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	//  //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	//  }
+											  	// else{
+											  	// 	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	// }
 											  }}
 
-											  if(($values['total']>= $rin) && ($values['total'] <= $sed)){
+											  else if(($values['total'] > $rin) && ($values['total'] <= $sed)){
 											  	$ux_ringan[$char] = ($rin-$values['total'])/$rin;
 											  	$name = 'ringan';
 											  	$name_rin[$char]= $value['faktor'].' '.$name;?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
 
 											  <?php 
-											  if($ux_ringan[$char] != 0){
+											   if($ux_ringan[$char] != 0){
 											  $name = 'ringan';
 											  $name_rin[$char]= $value['faktor'].' '.$name;
 											     $a=0;
@@ -268,17 +268,17 @@ $(document).on('click', '#tess',function(e){
 											  	 // $ar= array(
 											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
 											  	 $data_s=array_merge($data_s,$ar);
-											  	 if(array_key_exists($value['faktor'],$faktor)){
-											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	//  if(array_key_exists($value['faktor'],$faktor)){
+											  	//  	$data=array($value['faktor']=>$value['faktor'].' '.$name);
 
-											  	 	$faktor = array_merge_recursive($faktor,$data);
+											  	//  	$faktor = array_merge_recursive($faktor,$data);
 
-											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
-											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
-											  	 }
-											  	else{
-											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
-											  	}
+											  	//  	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	//  //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	//  }
+											  	// else{
+											  	// 	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	// }
 											  }}
 
 											  // ==============================================================
@@ -290,13 +290,13 @@ $(document).on('click', '#tess',function(e){
 											  	$name = 'sedang';
 											  	$name_sed[$char]= $value['faktor'].' '.$name;
 											  }}
-											  if(($rin <= $values['total'] ) && ($values['total'] <= $value['bts_ats']))
+											  else if(($rin <= $values['total'] ) && ($values['total'] <= $value['bts_ats']))
 											  {
 											  	$ux_sedang[$char] = ($values['total']-$rin)/$rin;
 											  	?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $rin; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
 											  <?php 
-											  if($ux_sedabg[$char] != 0){
+											  if($ux_sedang[$char] != 0){
 											  $name = 'sedang';
 											  $name_sed[$char]= $value['faktor'].' '.$name;
 											     $a=0;
@@ -309,24 +309,24 @@ $(document).on('click', '#tess',function(e){
 											  	 // $ar= array(
 											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
 											  	 $data_s=array_merge($data_s,$ar);
-											  	 if(array_key_exists($value['faktor'],$faktor)){
-											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	//  if(array_key_exists($value['faktor'],$faktor)){
+											  	//  	$data=array($value['faktor']=>$value['faktor'].' '.$name);
 
-											  	 	$faktor = array_merge_recursive($faktor,$data);
+											  	//  	$faktor = array_merge_recursive($faktor,$data);
 
-											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
-											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
-											  	 }
-											  	else{
-											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
-											  	}
+											  	//  	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	//  //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	//  }
+											  	// else{
+											  	// 	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	// }
 											  }}
 
-											  if(($sed <= $values['total']) && ($values['total'] <= $value['bts_ats'])){
+											  else if(($sed <= $values['total']) && ($values['total'] <= $value['bts_ats'])){
 											  	$ux_sedang[$char] = ($value['bts_ats']-$values['total'])/$rin;
 											  	$name = 'sedang';
 											  	$name_sed[$char]= $value['faktor'].' '.$name;?>
-											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $value['total']; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
+											  	&micro;<sub>  <?php echo $value['faktor'];?> sedang</sub>(<?php echo $values['total']; ?>)=(<?php echo $value['bts_ats'];?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_sedang[$char]?>;<br />
 											  <?php
 											  if($ux_sedang[$char] != 0){
 											  $name = 'sedang';
@@ -341,17 +341,17 @@ $(document).on('click', '#tess',function(e){
 											  	 // $ar= array(
 											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
 											  	 $data_s=array_merge($data_s,$ar);
-											  	if(array_key_exists($value['faktor'],$faktor)){
-											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	// if(array_key_exists($value['faktor'],$faktor)){
+											  	//  	$data=array($value['faktor']=>$value['faktor'].' '.$name);
 
-											  	 	$faktor = array_merge_recursive($faktor,$data);
+											  	//  	$faktor = array_merge_recursive($faktor,$data);
 
-											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
-											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
-											  	 }
-											  	else{
-											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
-											  	}
+											  	//  	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	//  //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	//  }
+											  	// else{
+											  	// 	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	// }
 											  }}
 											  // ======================================================================
 											  
@@ -374,20 +374,20 @@ $(document).on('click', '#tess',function(e){
 											  	 // $ar= array(
 											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
 											  	 $data_s=array_merge($data_s,$ar);
-											  	if(array_key_exists($value['faktor'],$faktor)){
-											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	// if(array_key_exists($value['faktor'],$faktor)){
+											  	//  	$data=array($value['faktor']=>$value['faktor'].' '.$name);
 
-											  	 	$faktor = array_merge_recursive($faktor,$data);
+											  	//  	$faktor = array_merge_recursive($faktor,$data);
 
-											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
-											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
-											  	 }
-											  	else{
-											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
-											  	}
+											  	//  	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	//  //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	//  }
+											  	// else{
+											  	// 	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	// }
 											  }}
 
-											  if($values['total'] < $sed){
+											  else if($values['total'] < $sed){
 											 	$ux_berat[$char] = 0;?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?=$ux_berat[$char]?>;<br />
 											  <?php if($ux_berat[$char]!= 0 ){
@@ -395,7 +395,7 @@ $(document).on('click', '#tess',function(e){
 											  	$name_brt[$char]= $value['faktor'].' '.$name;
 											  }}
 
-											  if($values['total'] > $value['bts_ats']){
+											  else if($values['total'] > $value['bts_ats']){
 											  	$ux_berat[$char] = 1;
 											  	$name = 'berat';
 											  	$name_brt[$char]= $value['faktor'].' '.$name;
@@ -600,7 +600,7 @@ $(document).on('click', '#tess',function(e){
 													$z=$z_max-$datamin*($z_max-$z_min);
 													$data_z[]=$z;
 													?>
-													Dari himpunan <?php echo $atr['hasil']; ?> : (<?=$z_max?>-z<sub><?php echo $noaturan ; ?></sub>)/<?=($z_max-$z_min)?>=<?=$datamin?><br/>
+													Dari himpunan <?php echo $atr['hasil']; ?> : (<?=$z_max?>-z<sub><?php echo $noaturan ; ?></sub>)/<?=($z_max-$z_min)?>= <?=$datamin?><br/>
 													diperoleh <strong>z<sub><?php echo $noaturan ; ?></sub></strong>= <?=$z?>
 												 	<?php $noaturan++;
 										 		}
@@ -666,7 +666,7 @@ $(document).on('click', '#tess',function(e){
 								  	} ?>)<br/>
 									= <?=$n?>/<?=$d?><br/>
 									= <?=$z?></p>
-									<p>Jadi total nilai depresi (<strong>z</strong>) =<strong><?=$z?></strong></p>
+									<p>Jadi total nilai depresi (<strong>z</strong>) = <strong><?=$z?></strong></p>
 								  </fieldset>
 								  <!-- cek klas depresi -->
 								  <?php 
@@ -682,10 +682,19 @@ $(document).on('click', '#tess',function(e){
 								  	'total_akhir'=> $z,
 								  	'id_klass_dep'=> $hasil_class,
 								  	'user_id'=> $user_id
-								  );
+								  );?> </br>
+								  <?php
 								  //print_r($datadiagnosa);exit;
-								  $input= $this->M_pemeriksaan->tambah_diagnosa($datadiagnosa);
-								  ?>
+								  $id= $this->M_pemeriksaan->tambah_diagnosa($datadiagnosa);
+								  $level= $this->session->userdata('level'); 
+                                	if($level != 'admin'){
+                                		redirect('back/pemeriksaan/hasil_diagnosa/'.$id);
+                                	}
+                                ?>
+                                  <center>
+                                  <td><a href="<?php echo site_url('back/pemeriksaan/hasil_diagnosa/'.$id);?>" class="btn btn-success btn-lg">Cetak Hasil</a></td>
+                                  </center>
+								  
 
 							<?php
 							//}

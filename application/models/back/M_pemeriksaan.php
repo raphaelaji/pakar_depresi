@@ -40,6 +40,20 @@ class M_pemeriksaan extends CI_Model {
 
   	}
 
+  	public function getdiagnosa($id_diagnosa){
+
+      $this->db->select('*,tb_klasifikasi_depresi.nama AS nama_klasifikasi');
+      $this->db->from('tb_diagnosa','tb_pemeriksaan','tb_klasifikasi_depresi','tb_user');
+      $this->db->join('tb_pemeriksaan', 'tb_diagnosa.id_pemeriksaan = tb_pemeriksaan.id_pemeriksaan','Left');
+      $this->db->join('tb_klasifikasi_depresi', 'tb_diagnosa.id_klass_dep = tb_klasifikasi_depresi.id_klass','Left');
+      $this->db->join('tb_user', 'tb_diagnosa.user_id = tb_user.id_user','Left');
+      $this->db->where('tb_diagnosa.id_diagnosa',$id_diagnosa);
+      
+      $q = $this->db->get();
+      return $q->result_array();
+
+  	}
+
     public function get_(){
     $query =$this->db->get('tb_pertanyaan');
     return $query->result_array();
@@ -119,6 +133,7 @@ class M_pemeriksaan extends CI_Model {
   	
   	public function tambah_diagnosa($datadiagnosa){
   		$this->db->insert('tb_diagnosa',$datadiagnosa);
+  		return $this->db->insert_id();
   	}
 
   	public function update_tmpgejala($id_pakar,$dt_tmp){
@@ -295,6 +310,15 @@ class M_pemeriksaan extends CI_Model {
     	return $query->result();
 	}
     
+    public function get_gejaladiagnosa($id_pemeriksaan) {
+		$this->db->select('*');
+		$this->db->from('tb_detail_pemeriksaan','tb_gejala');
+        $this->db->join('tb_gejala', 'tb_detail_pemeriksaan.id_gejala = tb_gejala.id_gejala','Left');
+		$this->db->where('tb_detail_pemeriksaan.id_pemeriksaan', $id_pemeriksaan);
+		$this->db->where('tb_detail_pemeriksaan.id_gejala !=', null);
+   		$query = $this->db->get('');
+		return $query->result_array();
+	}
 	
 
 }
