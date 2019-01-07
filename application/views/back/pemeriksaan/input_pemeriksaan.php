@@ -19,8 +19,8 @@ $(document).on('click', '#tess',function(e){
 			<div class="col-md-5 col-8 align-self-center">
 				<h3 class="text-themecolor">Pemeriksaan</h3>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="javascript:void(0)">Data Pemeriksaan</a></li>
-					<li class="breadcrumb-item active">Semua Data Pemeriksaan</li>
+					<li class="breadcrumb-item"><a href="javascript:void(0)">Input Data Pemeriksaan</a></li>
+					<!-- <li class="breadcrumb-item active">Semua Data Pemeriksaan</li> -->
 				</ol>
 			</div>
 		</div>
@@ -36,10 +36,11 @@ $(document).on('click', '#tess',function(e){
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-block">
-						<a href="#cat" id="tess" class="d-flex justify-content-between align-items-start py-2 px-3 text-dark" cat_id ="" user_id="">
-								<span>Akuisis data</span>
+						<!-- <a href="#cat" id="tess" class="d-flex justify-content-between align-items-start py-2 px-3 text-dark" cat_id ="" user_id=""> -->
+								<font color="red"><b>Petunjuk : </b></font></br>
 								<span class="badge badge-danger"></span>
-							</a>
+							<!-- </a> -->
+							<p>Angket berikut ini terdiri dari 21 kelompok pernyataan. Mohon setiap kelompok pernyataan dibaca dengan cermat. Setelah itu, pilih salah satu dari pernyataan di dalam setiap kelompok yang paling menggambarkan perasaan Anda <font color="blue"><b><u>selama dua minggu terakhir</u></b></font>, termasuk hari ini.</p>
 						<form class="form-material" action="<?php echo base_url(). 'back/pemeriksaan/tambah_aksi'; ?>" method="POST">
 							<table width="70%" border="0" cellspacing="0" cellpadding="0" class="table table-striped">
 								<?php $no=1;
@@ -69,8 +70,8 @@ $(document).on('click', '#tess',function(e){
 							</br>
 							
 							<div  class="col-xs-6 col-xs-offset-5">
-								<button type="submit" class="btn btn-info">Simpan</button>
-								<button type="reset" class="btn btn-info">Reset</button>
+								<button type="submit" class="btn btn-success">Simpan</button>
+								<button type="reset" class="btn btn-danger">Reset</button>
 							</div>
 						</form>
 					</div>
