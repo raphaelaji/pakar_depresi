@@ -18,7 +18,7 @@
                         </ol>
                     </div>
                     <div class="container text-right">
-                    <a href="<?php echo base_url(); ?>back/faktor/tambah" label class="btn btn-success waves-effect waves-light m-r-10">Tambah</a>
+                    
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -45,7 +45,6 @@
                                         <tr>
                                           <th >ID Faktor</th>
                                           <th >Faktor</th>
-                                          <th >Aksi</th>
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -58,11 +57,7 @@
                                           <td><?php echo $list['faktor']; ?></td>
                                           <td>
                                         
-                                          <a href="<?php echo base_url() ?>back/faktor/edit/<?php echo $list['id_faktor'] ?>"> <label class="btn btn-info" >EDIT</a> &nbsp 
-                                          <?php
-                                    //$level=$this->session->userdata('level');
-                                    // if($level == 1){?>
-                                          <a href="<?php echo base_url() ?>back/faktor/delete/<?php echo $list['id_faktor'] ?>"onclick="return confirm ('Apakah Anda yakin akan menghapus data ini ?')"><label class="btn btn-danger" >DELETE</a><?php } ?></td></label></a></label></a></td></tr>
+                                          <?php } ?></td></label></a></label></a></td></tr>
                                       </tr>
 
                                       <?php echo $this->session->flashdata('pesan'); ?>
