@@ -37,7 +37,7 @@ $(document).on('click', '#tess',function(e){
 				<div class="card">
 					<div class="card-block">
 						<a href="#cat" id="tess" class="d-flex justify-content-between align-items-start py-2 px-3 text-dark" cat_id ="" user_id="">
-								<span>tess</span>
+								<span>Akuisis data</span>
 								<span class="badge badge-danger"></span>
 							</a>
 						<form class="form-material" action="<?php echo base_url(). 'back/pemeriksaan/tambah_aksi'; ?>" method="POST">

@@ -92,6 +92,17 @@ class Pemeriksaan extends CI_Controller {
 	    $this->load->view('back/pemeriksaan/proses',$data);
 	    $this->load->view('back/temp/footer');
 	}
+
+	public function hasil_diagnosa($id_diagnosa)
+	{
+		$data['diagnosa'] = $this->M_pemeriksaan->getdiagnosa($id_diagnosa);
+		//print_r($data);exit;
+
+		$this->load->view('back/temp/head');
+	    $this->load->view('back/temp/sidebar');
+	    $this->load->view('back/pemeriksaan/hasil_diagnosa',$data);
+	    $this->load->view('back/temp/footer');
+	}
 	
 	public function simpan_gejala(){
 		$this->diagnosa_m->hapus_tmpgejala();
@@ -137,18 +148,6 @@ class Pemeriksaan extends CI_Controller {
 	  	redirect('admin/diagnosa/hasil_diagnosa');
 	}
 
-	public function hasil_diagnosa(){
-		$data['id_user'] = $this->session->userdata('id_user');
-		$data['username'] = $this->session->userdata('username');
-		$data['obat'] = $this->diagnosa_m->get_nm_obat();
-		$data['id_obat'] = $this->diagnosa_m->get_nm_obat();
-		
-		$this->load->view('header', $data);
-		$this->load->view('navbar');
-		$this->load->view('body');
-		$this->load->view('admin/diagnosa/hasil_diagnosa', $data);
-		$this->load->view('footer');
-	}
 
 	public function simpan_diagnosa(){
 		$data['id_user'] = $this->session->userdata('id_user');

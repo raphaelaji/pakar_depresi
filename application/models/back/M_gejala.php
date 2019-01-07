@@ -82,6 +82,7 @@ class M_gejala extends CI_Model {
    		$query = $this->db->get('tb_gejala');
 		return $query->result_array();
 	}
+	
 
 	public function get_kategori() {
    		$query = $this->db->get('tb_kategori');
