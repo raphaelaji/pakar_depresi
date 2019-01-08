@@ -526,7 +526,7 @@ $(document).on('click', '#tess',function(e){
 										//hasil seleksi semua kelas
 										//print_r($str_klas);
 										//array hasil yang lebih dari 0
-										print_r($data_s);
+										//print_r($data_s);
 										?>
 									</table>
 								  </fieldset>
