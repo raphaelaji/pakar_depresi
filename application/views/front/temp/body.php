@@ -17,7 +17,6 @@
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#banner">Home</a></li>
                 <li class=""><a href="#login">Login</a></li>
-                <li class=""><a href="#about">About</a></li>
               </ul>
             </div>
           </div>
@@ -31,7 +30,7 @@
             </div>
             <div class="banner-text text-center">
               <h1 class="white">Healthcare at your desk!!</h1>
-              <p>Sistem Pakar Untuk Mendeteksi Tingkat Depresi Seseorang Dengan Metode Fuzzy Tsukamoto.</p>
+              <h3 class="white">Sistem Pakar Untuk Mendeteksi Tingkat Depresi Seseorang Dengan Metode Fuzzy Tsukamoto</h3>
             </div>
             <div class="overlay-detail text-center">   
             </div>
@@ -159,38 +158,7 @@
   
   <!--cta-->
   <!--about-->
-  <section id="about" class="section-padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 col-xs-12">
-          <div class="section-title">
-            <h2 class="head-title lg-line">The Medilap <br>Ultimate Dream</h2>
-            <hr class="botm-line">
-            <p class="sec-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</p>
-            <a href="" style="color: #0cb8b6; padding-top:10px;">Know more..</a>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8 col-xs-12">
-          <div style="visibility: visible;" class="col-sm-9 more-features-box">
-            <div class="more-features-box-text">
-              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
-              <div class="more-features-box-text-description">
-                <h3>It's something important you want to know.</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud.</p>
-              </div>
-            </div>
-            <div class="more-features-box-text">
-              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
-              <div class="more-features-box-text-description">
-                <h3>It's something important you want to know.</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
   <!--/ about-->
   <!--doctor team-->
   <!--/ doctor team-->

@@ -8,7 +8,7 @@
               <h4 class="white no-padding">About Us</h4>
             </div>
             <div class="info-sec">
-              <p>Praesent convallis tortor et enim laoreet, vel consectetur purus latoque penatibus et dis parturient.</p>
+              <p>Sistem Pakar Untuk Mendeteksi Tingkat Depresi Seseorang Dengan Metode Fuzzy Tsukamoto</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-4 marb20">
@@ -17,9 +17,8 @@
             </div>
             <div class="info-sec">
               <ul class="quick-info">
-                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
-                <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
-                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+                <li><a href="#banner"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#login"><i class="fa fa-circle"></i>Login</a></li>
               </ul>
             </div>
           </div>
