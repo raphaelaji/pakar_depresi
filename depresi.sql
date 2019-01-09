@@ -1,22 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
--- https://www.phpmyadmin.net/
+-- version 4.2.7.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2019 at 05:44 PM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Jan 08, 2019 at 02:04 PM
+-- Server version: 5.6.20
+-- PHP Version: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `depresi`
@@ -28,19 +26,82 @@ SET time_zone = "+00:00";
 -- Table structure for table `tb_aturan`
 --
 
-CREATE TABLE `tb_aturan` (
-  `id_aturan` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_aturan` (
+`id_aturan` int(5) NOT NULL,
   `conditions` varchar(250) NOT NULL,
   `hasil` varchar(20) NOT NULL,
   `flag` enum('0','1') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
 
 --
 -- Dumping data for table `tb_aturan`
 --
 
 INSERT INTO `tb_aturan` (`id_aturan`, `conditions`, `hasil`, `flag`) VALUES
-(1, 'Somatik minimal AND Afektif minimal AND Kognitif minimal', 'Depresi minimal', '1');
+(1, 'Somatik minimal AND Afektif minimal AND Kognitif minimal', 'Depresi minimal', '1'),
+(2, 'Somatik minimal AND Afektif minimal AND Kognitif rendah', 'Depresi minimal', '1'),
+(3, 'Somatik minimal AND Afektif minimal AND Kognitif sedang', 'Depresi minimal', '1'),
+(4, 'Somatik minimal AND Afektif minimal AND Kognitif berat', 'Depresi rendah', '1'),
+(5, 'Somatik minimal AND Afektif rendah AND Kognitif minimal', 'Depresi minimal', '1'),
+(6, 'Somatik minimal AND Afektif rendah AND Kognitif rendah', 'Depresi minimal', '1'),
+(7, 'Somatik minimal AND Afektif rendah AND Kognitif sedang', 'Depresi rendah', '1'),
+(8, 'Somatik minimal AND Afektif rendah AND Kognitif berat', 'Depresi rendah', '1'),
+(9, 'Somatik minimal AND Afektif sedang AND Kognitif minimal', 'Depresi rendah', '1'),
+(10, 'Somatik minimal AND Afektif sedang AND Kognitif rendah', 'Depresi sedang', '1'),
+(11, 'Somatik minimal AND Afektif sedang AND Kognitif sedang', 'Depresi sedang', '1'),
+(12, 'Somatik minimal AND Afektif sedang AND Kognitif berat', 'Depresi sedang', '1'),
+(13, 'Somatik minimal AND Afektif berat AND Kognitif minimal', 'Depresi sedang', '1'),
+(14, 'Somatik minimal AND Afektif berat AND Kognitif rendah', 'Depresi sedang', '1'),
+(15, 'Somatik minimal AND Afektif berat AND Kognitif sedang', 'Depresi berat', '1'),
+(16, 'Somatik minimal AND Afektif berat AND Kognitif berat', 'Depresi berat', '1'),
+(17, 'Somatik rendah AND Afektif minimal AND Kognitif minimal', 'Depresi minimal', '1'),
+(18, 'Somatik rendah AND Afektif minimal AND Kognitif rendah', 'Depresi rendah', '1'),
+(19, 'Somatik rendah AND Afektif minimal AND Kognitif sedang', 'Depresi rendah', '1'),
+(20, 'Somatik rendah AND Afektif minimal AND Kognitif berat', 'Depresi sedang', '1'),
+(21, 'Somatik rendah AND Afektif rendah AND Kognitif minimal', 'Depresi minimal', '1'),
+(22, 'Somatik rendah AND Afektif rendah AND Kognitif rendah', 'Depresi rendah', '1'),
+(23, 'Somatik rendah AND Afektif rendah AND Kognitif sedang', 'Depresi sedang', '1'),
+(24, 'Somatik rendah AND Afektif rendah AND Kognitif berat', 'Depresi sedang', '1'),
+(25, 'Somatik rendah AND Afektif sedang AND Kognitif minimal', 'Depresi rendah', '1'),
+(26, 'Somatik rendah AND Afektif sedang AND Kognitif rendah', 'Depresi sedang', '1'),
+(27, 'Somatik rendah AND Afektif sedang AND Kognitif sedang', 'Depresi sedang', '1'),
+(28, 'Somatik rendah AND Afektif sedang AND Kognitif berat', 'Depresi berat', '1'),
+(29, 'Somatik rendah AND Afektif berat  AND Kognitif minimal', 'Depresi sedang', '1'),
+(30, 'Somatik rendah AND Afektif berat  AND Kognitif rendah', 'Depresi sedang', '1'),
+(31, 'Somatik rendah AND Afektif berat  AND Kognitif sedang', 'Depresi sedang', '1'),
+(32, 'Somatik rendah AND Afektif berat  AND Kognitif berat', 'Depresi berat', '1'),
+(33, 'Somatik sedang AND Afektif minimal AND Kognitif minimal', 'Depresi sedang', '1'),
+(34, 'Somatik sedang AND Afektif minimal AND Kognitif rendah', 'Depresi sedang', '1'),
+(35, 'Somatik sedang AND Afektif minimal AND Kognitif sedang', 'Depresi berat', '1'),
+(36, 'Somatik sedang AND Afektif minimal AND Kognitif berat ', 'Depresi berat', '1'),
+(37, 'Somatik sedang AND Afektif rendah AND Kognitif minimal', 'Depresi sedang', '1'),
+(38, 'Somatik sedang AND Afektif rendah AND Kognitif rendah', 'Depresi sedang', '1'),
+(39, 'Somatik sedang AND Afektif rendah AND Kognitif sedang', 'Depresi berat', '1'),
+(40, 'Somatik sedang AND Afektif rendah AND Kognitif berat', 'Depresi berat', '1'),
+(41, 'Somatik sedang AND Afektif sedang AND Kognitif minimal', 'Depresi berat', '1'),
+(42, 'Somatik sedang AND Afektif sedang AND Kognitif rendah', 'Depresi berat', '1'),
+(43, 'Somatik sedang AND Afektif sedang AND Kognitif sedang', 'Depresi berat', '1'),
+(44, 'Somatik sedang AND Afektif sedang AND Kognitif berat', 'Depresi berat', '1'),
+(45, 'Somatik sedang AND Afektif berat  AND Kognitif minimal', 'Depresi berat', '1'),
+(46, 'Somatik sedang AND Afektif berat  AND Kognitif rendah', 'Depresi berat', '1'),
+(47, 'Somatik sedang AND Afektif berat  AND Kognitif sedang', 'Depresi berat', '1'),
+(48, 'Somatik sedang AND Afektif berat  AND Kognitif berat', 'Depresi berat', '1'),
+(49, 'Somatik berat AND Afektif minimal  AND Kognitif minimal', 'Depresi berat', '1'),
+(50, 'Somatik berat AND Afektif minimal  AND Kognitif rendah', 'Depresi berat', '1'),
+(51, 'Somatik berat AND Afektif minimal  AND Kognitif sedang', 'Depresi berat', '1'),
+(52, 'Somatik berat AND Afektif minimal  AND Kognitif berat', 'Depresi berat', '1'),
+(53, 'Somatik berat AND Afektif rendah  AND Kognitif minimal', 'Depresi berat', '1'),
+(54, 'Somatik berat AND Afektif rendah  AND Kognitif rendah', 'Depresi berat', '1'),
+(55, 'Somatik berat AND Afektif rendah  AND Kognitif sedang', 'Depresi berat', '1'),
+(56, 'Somatik berat AND Afektif rendah  AND Kognitif berat', 'Depresi berat', '1'),
+(57, 'Somatik berat AND Afektif sedang  AND Kognitif minimal', 'Depresi berat', '1'),
+(58, 'Somatik berat AND Afektif sedang  AND Kognitif rendah', 'Depresi berat', '1'),
+(59, 'Somatik berat AND Afektif sedang  AND Kognitif sedang', 'Depresi berat', '1'),
+(60, 'Somatik berat AND Afektif sedang  AND Kognitif berat', 'Depresi berat', '1'),
+(61, 'Somatik berat AND Afektif berat AND Kognitif minimal', 'Depresi berat', '1'),
+(62, 'Somatik berat AND Afektif berat AND Kognitif rendah', 'Depresi berat', '1'),
+(63, 'Somatik berat AND Afektif berat AND Kognitif sedang', 'Depresi berat', '1'),
+(64, 'Somatik berat AND Afektif berat AND Kognitif berat', 'Depresi berat', '1');
 
 -- --------------------------------------------------------
 
@@ -48,13 +109,13 @@ INSERT INTO `tb_aturan` (`id_aturan`, `conditions`, `hasil`, `flag`) VALUES
 -- Table structure for table `tb_batas`
 --
 
-CREATE TABLE `tb_batas` (
-  `id_batas` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_batas` (
+`id_batas` int(5) NOT NULL,
   `id_faktor` varchar(5) NOT NULL,
   `bts_bwh` varchar(5) NOT NULL,
   `bts_ats` varchar(5) NOT NULL,
   `flag` enum('0','1') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `tb_batas`
@@ -71,14 +132,14 @@ INSERT INTO `tb_batas` (`id_batas`, `id_faktor`, `bts_bwh`, `bts_ats`, `flag`) V
 -- Table structure for table `tb_detail_pemeriksaan`
 --
 
-CREATE TABLE `tb_detail_pemeriksaan` (
-  `id_detail` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_detail_pemeriksaan` (
+`id_detail` int(11) NOT NULL,
   `id_pemeriksaan` int(11) NOT NULL,
   `id_faktor` varchar(5) NOT NULL,
   `id_kategori` varchar(5) NOT NULL,
   `id_gejala` varchar(5) DEFAULT NULL,
   `total` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=106 ;
 
 --
 -- Dumping data for table `tb_detail_pemeriksaan`
@@ -105,7 +166,91 @@ INSERT INTO `tb_detail_pemeriksaan` (`id_detail`, `id_pemeriksaan`, `id_faktor`,
 (18, 1, 'F003', 'K018', NULL, '0'),
 (19, 1, 'F002', 'K019', NULL, '0'),
 (20, 1, 'F003', 'K020', NULL, '0'),
-(21, 1, 'F003', 'K021', 'G083', '0.1716');
+(21, 1, 'F003', 'K021', 'G083', '0.1716'),
+(22, 2, 'F001', 'K001', 'G001', '0'),
+(23, 2, 'F001', 'K002', 'G006', '0.1254'),
+(24, 2, 'F002', 'K003', 'G009', '0'),
+(25, 2, 'F003', 'K004', 'G013', '0'),
+(26, 2, 'F002', 'K005', 'G017', '0'),
+(27, 2, 'F002', 'K006', 'G022', '0.1518'),
+(28, 2, 'F002', 'K007', NULL, '0'),
+(29, 2, 'F002', 'K008', 'G029', '0'),
+(30, 2, 'F002', 'K009', 'G033', '0'),
+(31, 2, 'F001', 'K010', 'G037', '0'),
+(32, 2, 'F001', 'K011', 'G041', '0'),
+(33, 2, 'F003', 'K012', 'G045', '0'),
+(34, 2, 'F002', 'K013', 'G049', '0'),
+(35, 2, 'F002', 'K014', 'G053', '0'),
+(36, 2, 'F003', 'K015', 'G057', '0'),
+(37, 2, 'F003', 'K016', 'G061', '0'),
+(38, 2, 'F001', 'K017', 'G065', '0'),
+(39, 2, 'F003', 'K018', 'G069', '0'),
+(40, 2, 'F002', 'K019', 'G073', '0'),
+(41, 2, 'F003', 'K020', 'G077', '0'),
+(42, 2, 'F003', 'K021', 'G081', '0'),
+(43, 3, 'F001', 'K001', 'G001', '0'),
+(44, 3, 'F001', 'K002', 'G005', '0'),
+(45, 3, 'F002', 'K003', 'G009', '0'),
+(46, 3, 'F003', 'K004', 'G013', '0'),
+(47, 3, 'F002', 'K005', 'G017', '0'),
+(48, 3, 'F002', 'K006', 'G021', '0'),
+(49, 3, 'F002', 'K007', 'G025', '0'),
+(50, 3, 'F002', 'K008', 'G029', '0'),
+(51, 3, 'F002', 'K009', 'G033', '0'),
+(52, 3, 'F001', 'K010', 'G037', '0'),
+(53, 3, 'F001', 'K011', 'G041', '0'),
+(54, 3, 'F003', 'K012', 'G045', '0'),
+(55, 3, 'F002', 'K013', 'G049', '0'),
+(56, 3, 'F002', 'K014', 'G053', '0'),
+(57, 3, 'F003', 'K015', 'G057', '0'),
+(58, 3, 'F003', 'K016', 'G061', '0'),
+(59, 3, 'F001', 'K017', 'G065', '0'),
+(60, 3, 'F003', 'K018', 'G069', '0'),
+(61, 3, 'F002', 'K019', 'G073', '0'),
+(62, 3, 'F003', 'K020', 'G077', '0'),
+(63, 3, 'F003', 'K021', 'G081', '0'),
+(64, 4, 'F001', 'K001', 'G001', '0'),
+(65, 4, 'F001', 'K002', 'G005', '0'),
+(66, 4, 'F002', 'K003', 'G009', '0'),
+(67, 4, 'F003', 'K004', 'G013', '0'),
+(68, 4, 'F002', 'K005', 'G017', '0'),
+(69, 4, 'F002', 'K006', 'G021', '0'),
+(70, 4, 'F002', 'K007', 'G025', '0'),
+(71, 4, 'F002', 'K008', 'G029', '0'),
+(72, 4, 'F002', 'K009', 'G033', '0'),
+(73, 4, 'F001', 'K010', 'G037', '0'),
+(74, 4, 'F001', 'K011', 'G041', '0'),
+(75, 4, 'F003', 'K012', 'G045', '0'),
+(76, 4, 'F002', 'K013', 'G049', '0'),
+(77, 4, 'F002', 'K014', 'G053', '0'),
+(78, 4, 'F003', 'K015', 'G057', '0'),
+(79, 4, 'F003', 'K016', 'G061', '0'),
+(80, 4, 'F001', 'K017', 'G065', '0'),
+(81, 4, 'F003', 'K018', 'G069', '0'),
+(82, 4, 'F002', 'K019', 'G073', '0'),
+(83, 4, 'F003', 'K020', 'G077', '0'),
+(84, 4, 'F003', 'K021', 'G081', '0'),
+(85, 5, 'F001', 'K001', 'G001', '0'),
+(86, 5, 'F001', 'K002', 'G005', '0'),
+(87, 5, 'F002', 'K003', 'G009', '0'),
+(88, 5, 'F003', 'K004', 'G013', '0'),
+(89, 5, 'F002', 'K005', 'G017', '0'),
+(90, 5, 'F002', 'K006', 'G021', '0'),
+(91, 5, 'F002', 'K007', 'G025', '0'),
+(92, 5, 'F002', 'K008', 'G029', '0'),
+(93, 5, 'F002', 'K009', 'G033', '0'),
+(94, 5, 'F001', 'K010', 'G037', '0'),
+(95, 5, 'F001', 'K011', 'G041', '0'),
+(96, 5, 'F003', 'K012', 'G045', '0'),
+(97, 5, 'F002', 'K013', 'G049', '0'),
+(98, 5, 'F002', 'K014', 'G053', '0'),
+(99, 5, 'F003', 'K015', 'G057', '0'),
+(100, 5, 'F003', 'K016', 'G061', '0'),
+(101, 5, 'F001', 'K017', 'G065', '0'),
+(102, 5, 'F003', 'K018', 'G069', '0'),
+(103, 5, 'F002', 'K019', 'G073', '0'),
+(104, 5, 'F003', 'K020', 'G077', '0'),
+(105, 5, 'F003', 'K021', 'G081', '0');
 
 -- --------------------------------------------------------
 
@@ -113,20 +258,24 @@ INSERT INTO `tb_detail_pemeriksaan` (`id_detail`, `id_pemeriksaan`, `id_faktor`,
 -- Table structure for table `tb_diagnosa`
 --
 
-CREATE TABLE `tb_diagnosa` (
-  `id_diagnosa` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_diagnosa` (
+`id_diagnosa` int(11) NOT NULL,
   `id_pemeriksaan` int(11) NOT NULL,
   `total_akhir` varchar(10) NOT NULL,
   `id_klass_dep` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tb_diagnosa`
 --
 
 INSERT INTO `tb_diagnosa` (`id_diagnosa`, `id_pemeriksaan`, `total_akhir`, `id_klass_dep`, `user_id`) VALUES
-(1, 1, '6.88395348', 1, 1);
+(1, 1, '6.88395348', 1, 1),
+(2, 2, '0', 1, 1),
+(3, 3, '0', 1, 1),
+(4, 4, '0', 1, 1),
+(5, 5, '0', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -134,7 +283,7 @@ INSERT INTO `tb_diagnosa` (`id_diagnosa`, `id_pemeriksaan`, `total_akhir`, `id_k
 -- Table structure for table `tb_faktor`
 --
 
-CREATE TABLE `tb_faktor` (
+CREATE TABLE IF NOT EXISTS `tb_faktor` (
   `id_faktor` varchar(5) NOT NULL,
   `faktor` varchar(20) NOT NULL,
   `flag` int(1) DEFAULT '0' COMMENT '0=non aktif 1=aktif'
@@ -155,12 +304,12 @@ INSERT INTO `tb_faktor` (`id_faktor`, `faktor`, `flag`) VALUES
 -- Table structure for table `tb_faktor_pemeriksaan`
 --
 
-CREATE TABLE `tb_faktor_pemeriksaan` (
-  `id_faktor_pemeriksaan` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_faktor_pemeriksaan` (
+`id_faktor_pemeriksaan` int(11) NOT NULL,
   `id_pemeriksaan` int(11) NOT NULL,
   `id_faktor` varchar(5) NOT NULL,
   `total` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `tb_faktor_pemeriksaan`
@@ -169,7 +318,19 @@ CREATE TABLE `tb_faktor_pemeriksaan` (
 INSERT INTO `tb_faktor_pemeriksaan` (`id_faktor_pemeriksaan`, `id_pemeriksaan`, `id_faktor`, `total`) VALUES
 (1, 1, 'F001', '0.4554'),
 (2, 1, 'F002', '0'),
-(3, 1, 'F003', '0.5544');
+(3, 1, 'F003', '0.5544'),
+(4, 2, 'F001', '0.1254'),
+(5, 2, 'F002', '0.1518'),
+(6, 2, 'F003', '0'),
+(7, 3, 'F001', '0'),
+(8, 3, 'F002', '0'),
+(9, 3, 'F003', '0'),
+(10, 4, 'F001', '0'),
+(11, 4, 'F002', '0'),
+(12, 4, 'F003', '0'),
+(13, 5, 'F001', '0'),
+(14, 5, 'F002', '0'),
+(15, 5, 'F003', '0');
 
 -- --------------------------------------------------------
 
@@ -177,7 +338,7 @@ INSERT INTO `tb_faktor_pemeriksaan` (`id_faktor_pemeriksaan`, `id_pemeriksaan`, 
 -- Table structure for table `tb_gejala`
 --
 
-CREATE TABLE `tb_gejala` (
+CREATE TABLE IF NOT EXISTS `tb_gejala` (
   `id_gejala` varchar(5) NOT NULL,
   `gejala` text NOT NULL,
   `bobot_gj` float NOT NULL,
@@ -280,12 +441,12 @@ INSERT INTO `tb_gejala` (`id_gejala`, `gejala`, `bobot_gj`, `id_kategori`) VALUE
 -- Table structure for table `tb_hasil`
 --
 
-CREATE TABLE `tb_hasil` (
-  `id_hasil` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_hasil` (
+`id_hasil` int(5) NOT NULL,
   `id_user` int(5) NOT NULL,
   `id_aturan` int(5) NOT NULL,
   `nilai_akhir` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -293,7 +454,7 @@ CREATE TABLE `tb_hasil` (
 -- Table structure for table `tb_kategori`
 --
 
-CREATE TABLE `tb_kategori` (
+CREATE TABLE IF NOT EXISTS `tb_kategori` (
   `id_kategori` varchar(5) NOT NULL,
   `id_faktor` varchar(5) NOT NULL,
   `kategori` text NOT NULL,
@@ -333,12 +494,12 @@ INSERT INTO `tb_kategori` (`id_kategori`, `id_faktor`, `kategori`, `bobot_kat`) 
 -- Table structure for table `tb_klasifikasi_depresi`
 --
 
-CREATE TABLE `tb_klasifikasi_depresi` (
-  `id_klass` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_klasifikasi_depresi` (
+`id_klass` int(11) NOT NULL,
   `nama` varchar(20) NOT NULL,
   `nilai_klasifikasi_bawah` varchar(20) NOT NULL,
   `nilai_klasifikasi_atas` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tb_klasifikasi_depresi`
@@ -356,14 +517,14 @@ INSERT INTO `tb_klasifikasi_depresi` (`id_klass`, `nama`, `nilai_klasifikasi_baw
 -- Table structure for table `tb_pakar`
 --
 
-CREATE TABLE `tb_pakar` (
-  `id_pakar` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_pakar` (
+`id_pakar` int(5) NOT NULL,
   `id_faktor` varchar(5) NOT NULL,
   `id_kategori` varchar(5) NOT NULL,
   `bobot_kat` float NOT NULL,
   `id_gejala` varchar(5) NOT NULL,
   `bobot_gj` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=84 ;
 
 --
 -- Dumping data for table `tb_pakar`
@@ -460,18 +621,22 @@ INSERT INTO `tb_pakar` (`id_pakar`, `id_faktor`, `id_kategori`, `bobot_kat`, `id
 -- Table structure for table `tb_pemeriksaan`
 --
 
-CREATE TABLE `tb_pemeriksaan` (
-  `id_pemeriksaan` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_pemeriksaan` (
+`id_pemeriksaan` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `creation_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tb_pemeriksaan`
 --
 
 INSERT INTO `tb_pemeriksaan` (`id_pemeriksaan`, `user_id`, `creation_date`) VALUES
-(1, 1, '2018-12-22');
+(1, 1, '2018-12-22'),
+(2, 1, '2019-01-07'),
+(3, 1, '2019-01-07'),
+(4, 1, '2019-01-07'),
+(5, 1, '2019-01-07');
 
 -- --------------------------------------------------------
 
@@ -479,8 +644,8 @@ INSERT INTO `tb_pemeriksaan` (`id_pemeriksaan`, `user_id`, `creation_date`) VALU
 -- Table structure for table `tb_user`
 --
 
-CREATE TABLE `tb_user` (
-  `id_user` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_user` (
+`id_user` int(5) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(32) NOT NULL,
   `nama` varchar(50) NOT NULL,
@@ -488,7 +653,7 @@ CREATE TABLE `tb_user` (
   `usia` int(2) NOT NULL,
   `gender` enum('L','P') NOT NULL,
   `level` enum('admin','user') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tb_user`
@@ -506,79 +671,79 @@ INSERT INTO `tb_user` (`id_user`, `username`, `password`, `nama`, `alamat`, `usi
 -- Indexes for table `tb_aturan`
 --
 ALTER TABLE `tb_aturan`
-  ADD PRIMARY KEY (`id_aturan`);
+ ADD PRIMARY KEY (`id_aturan`);
 
 --
 -- Indexes for table `tb_batas`
 --
 ALTER TABLE `tb_batas`
-  ADD PRIMARY KEY (`id_batas`);
+ ADD PRIMARY KEY (`id_batas`);
 
 --
 -- Indexes for table `tb_detail_pemeriksaan`
 --
 ALTER TABLE `tb_detail_pemeriksaan`
-  ADD PRIMARY KEY (`id_detail`);
+ ADD PRIMARY KEY (`id_detail`);
 
 --
 -- Indexes for table `tb_diagnosa`
 --
 ALTER TABLE `tb_diagnosa`
-  ADD PRIMARY KEY (`id_diagnosa`);
+ ADD PRIMARY KEY (`id_diagnosa`);
 
 --
 -- Indexes for table `tb_faktor`
 --
 ALTER TABLE `tb_faktor`
-  ADD PRIMARY KEY (`id_faktor`);
+ ADD PRIMARY KEY (`id_faktor`);
 
 --
 -- Indexes for table `tb_faktor_pemeriksaan`
 --
 ALTER TABLE `tb_faktor_pemeriksaan`
-  ADD PRIMARY KEY (`id_faktor_pemeriksaan`);
+ ADD PRIMARY KEY (`id_faktor_pemeriksaan`);
 
 --
 -- Indexes for table `tb_gejala`
 --
 ALTER TABLE `tb_gejala`
-  ADD PRIMARY KEY (`id_gejala`);
+ ADD PRIMARY KEY (`id_gejala`);
 
 --
 -- Indexes for table `tb_hasil`
 --
 ALTER TABLE `tb_hasil`
-  ADD PRIMARY KEY (`id_hasil`);
+ ADD PRIMARY KEY (`id_hasil`);
 
 --
 -- Indexes for table `tb_kategori`
 --
 ALTER TABLE `tb_kategori`
-  ADD PRIMARY KEY (`id_kategori`);
+ ADD PRIMARY KEY (`id_kategori`);
 
 --
 -- Indexes for table `tb_klasifikasi_depresi`
 --
 ALTER TABLE `tb_klasifikasi_depresi`
-  ADD PRIMARY KEY (`id_klass`);
+ ADD PRIMARY KEY (`id_klass`);
 
 --
 -- Indexes for table `tb_pakar`
 --
 ALTER TABLE `tb_pakar`
-  ADD PRIMARY KEY (`id_pakar`);
+ ADD PRIMARY KEY (`id_pakar`);
 
 --
 -- Indexes for table `tb_pemeriksaan`
 --
 ALTER TABLE `tb_pemeriksaan`
-  ADD PRIMARY KEY (`id_pemeriksaan`);
+ ADD PRIMARY KEY (`id_pemeriksaan`);
 
 --
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id_user`);
+ ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -588,63 +753,52 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_aturan`
 --
 ALTER TABLE `tb_aturan`
-  MODIFY `id_aturan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+MODIFY `id_aturan` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `tb_batas`
 --
 ALTER TABLE `tb_batas`
-  MODIFY `id_batas` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+MODIFY `id_batas` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tb_detail_pemeriksaan`
 --
 ALTER TABLE `tb_detail_pemeriksaan`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
+MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=106;
 --
 -- AUTO_INCREMENT for table `tb_diagnosa`
 --
 ALTER TABLE `tb_diagnosa`
-  MODIFY `id_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+MODIFY `id_diagnosa` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tb_faktor_pemeriksaan`
 --
 ALTER TABLE `tb_faktor_pemeriksaan`
-  MODIFY `id_faktor_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+MODIFY `id_faktor_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `tb_hasil`
 --
 ALTER TABLE `tb_hasil`
-  MODIFY `id_hasil` int(5) NOT NULL AUTO_INCREMENT;
-
+MODIFY `id_hasil` int(5) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tb_klasifikasi_depresi`
 --
 ALTER TABLE `tb_klasifikasi_depresi`
-  MODIFY `id_klass` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+MODIFY `id_klass` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tb_pakar`
 --
 ALTER TABLE `tb_pakar`
-  MODIFY `id_pakar` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
-
+MODIFY `id_pakar` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT for table `tb_pemeriksaan`
 --
 ALTER TABLE `tb_pemeriksaan`
-  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
-
+MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
