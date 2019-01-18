@@ -66,7 +66,8 @@ $(document).on('click', '#tess',function(e){
 										foreach ($batas as $key => $value) { 
 											$mn[$char] = $value['bts_ats'];
 											$rin[$char] = $value['bts_ats']/3;
-											$sed[$char] = $value['bts_ats']/2;
+											
+											$sed[$char] = ($value['bts_ats']/3)*2;
 										?>
 										<tr>
 										  	<td><?php echo $value['faktor'] ?></td>
@@ -141,7 +142,8 @@ $(document).on('click', '#tess',function(e){
 											$bts_bwh = $value['bts_bwh'];
 											$kr = $bts_ats - $bts_bwh;
 											$rin = number_format($value['bts_ats']/3, 2);
-											$sed = number_format($value['bts_ats']/2, 2); ?>
+											//$sed = number_format($value['bts_ats']/2, 2);
+											$sed = number_format(($value['bts_ats']/3)*2, 2); ?>
 										  <tr>
 											<th colspan='8'><?php echo $value['faktor']; ?></th>
 										  </tr>
@@ -163,7 +165,7 @@ $(document).on('click', '#tess',function(e){
 										  </tr>
 										  <tr>
 											<td>0 , <?php echo $char;?>><?php echo $rin;?></td>
-											<td>(<?php echo $rin;?>-<?php echo $char;?>)/<?php echo $rin;?> , <?php echo $rin;?> &le; <?php echo $char;?> &le;<?php echo $sed;?></td>
+											<td>(<?php echo $sed;?>-<?php echo $char;?>)/<?php echo $rin;?> , <?php echo $rin;?> &le; <?php echo $char;?> &le;<?php echo $sed;?></td>
 											<td>(<?php echo $value['bts_ats'];?>-<?php echo $char;?>)/<?php echo $rin;?> , <?php echo $sed;?> &le; <?php echo $char;?> &le;<?php echo $value['bts_ats'];?></td>
 											<td>1 , <?php echo $char;?>><?php echo $value['bts_ats'];?></td>
 										  </tr>
@@ -205,24 +207,43 @@ $(document).on('click', '#tess',function(e){
 											 	if($ux_minimal[$char]!= 0){
 											  	$name = 'minimal';
 											  	$name_min[$char]= $value['faktor'].' '.$name;
+											  	$a=0;
+											  	$c='a';
+											  	foreach ($name_min as $key => $val) {
+											  	 		$ar[$val]=$ux_minimal[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 $data_s=array_merge($data_s,$ar);
 											  }}
 											  // ==============================================================
 											  if(($values['total'] < $value['bts_bwh']) or ($values['total'] > $sed)){
 											  	$ux_ringan[$char] = 0;
 											  	?>
-											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=<?=$ux_ringan[$char]?>;<br />
+											  	&micro;<sub>  <?php echo $value['faktor'];?> rendah</sub>(<?php echo $values['total']; ?>)=<?=$ux_ringan[$char]?>;<br />
 											  <?php 
-											  	$name = 'ringan';
+											  if($ux_ringan[$char] != 0){
+											  	$name = 'rendah';
 											  	$name_rin[$char]= $value['faktor'].' '.$name;
-											  }
+											  	 $a=0;
+											  	 $c='a';
+											  	 foreach ($name_rin as $key => $val) {
+											  	 		$ar[$val]=$ux_ringan[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 // $ar= array(
+											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 $data_s=array_merge($data_s,$ar);
+											  }}
 											  else if(($value['bts_bwh'] <= $values['total']) && ($values['total'] <= $rin))
 											  {
 											  	$ux_ringan[$char] = ($values['total']-$value['bts_bwh'])/$rin;
 											  	?>
-											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
+											  	&micro;<sub>  <?php echo $value['faktor'];?> rendah</sub>(<?php echo $values['total']; ?>)=(<?php echo $values['total'];?>-<?php echo $value['bts_bwh']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
 											  <?php 
 											  if($ux_ringan[$char] != 0){
-											  $name = 'ringan';
+											  $name = 'rendah';
 											  $name_rin[$char]= $value['faktor'].' '.$name;
 												 $a=0;
 											  	 $c='a';
@@ -249,14 +270,14 @@ $(document).on('click', '#tess',function(e){
 											  }}
 
 											  else if(($values['total'] > $rin) && ($values['total'] <= $sed)){
-											  	$ux_ringan[$char] = ($rin-$values['total'])/$rin;
-											  	$name = 'ringan';
+											  	$ux_ringan[$char] = ($sed-$values['total'])/$rin;
+											  	$name = 'rendah';
 											  	$name_rin[$char]= $value['faktor'].' '.$name;?>
-											  	&micro;<sub>  <?php echo $value['faktor'];?> ringan</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
+											  	&micro;<sub>  <?php echo $value['faktor'];?> rendah</sub>(<?php echo $values['total']; ?>)=(<?php echo $rin;?>-<?php echo $values['total']; ?>)/<?php echo $rin;?>=<?=$ux_ringan[$char]?>;<br />
 
 											  <?php 
 											   if($ux_ringan[$char] != 0){
-											  $name = 'ringan';
+											  $name = 'rendah';
 											  $name_rin[$char]= $value['faktor'].' '.$name;
 											     $a=0;
 											  	 $c='a';
@@ -289,6 +310,12 @@ $(document).on('click', '#tess',function(e){
 											  <?php if($ux_sedang[$char] != 0){
 											  	$name = 'sedang';
 											  	$name_sed[$char]= $value['faktor'].' '.$name;
+											  	foreach ($name_sed as $key => $val) {
+											  	 		$ar[$val]=$ux_sedang[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 $data_s=array_merge($data_s,$ar);
 											  }}
 											  else if(($rin <= $values['total'] ) && ($values['total'] <= $value['bts_ats']))
 											  {
@@ -393,6 +420,14 @@ $(document).on('click', '#tess',function(e){
 											  <?php if($ux_berat[$char]!= 0 ){
 											  	$name = 'berat';
 											  	$name_brt[$char]= $value['faktor'].' '.$name;
+											  	$a=0;
+											  	 $c='a';
+											  	 foreach ($name_brt as $key => $val) {
+											  	 		$ar[$val]=$ux_berat[$c];
+											  	 		$a++;
+											  	 		$c++;
+											  	 }
+											  	 $data_s=array_merge($data_s,$ar);
 											  }}
 
 											  else if($values['total'] > $value['bts_ats']){
@@ -401,25 +436,25 @@ $(document).on('click', '#tess',function(e){
 											  	$name_brt[$char]= $value['faktor'].' '.$name;
 											  	$a=0;
 											  	$c='a';
-											  	 foreach ($name_brt as $key => $val) {
-											  	 		$ar[$val]=$ux_berat[$c];
-											  	 		$a++;
-											  	 		$c++;
-											  	 }
-											  	 if(array_key_exists($value['faktor'],$faktor)){
-											  	 	$data=array($value['faktor']=>$value['faktor'].' '.$name);
+											  	//  foreach ($name_brt as $key => $val) {
+											  	//  		$ar[$val]=$ux_berat[$c];
+											  	//  		$a++;
+											  	//  		$c++;
+											  	//  }
+											  	//  if(array_key_exists($value['faktor'],$faktor)){
+											  	//  	$data=array($value['faktor']=>$value['faktor'].' '.$name);
 
-											  	 	$faktor = array_merge_recursive($faktor,$data);
+											  	//  	$faktor = array_merge_recursive($faktor,$data);
 
-											  	 	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
-											  	 //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
-											  	 }
-											  	else{
-											  		 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
-											  	}
-											  	 // $ar= array(
-											  	 // 	$name_min[$char]=>$ux_minimal[$char]);
-											  	 $data_s=array_merge($data_s,$ar);?>
+											  	//  	//$faktor += [$value['faktor'] => $value['faktor'].' '.$name];
+											  	//  //$faktor[$value['faktor']]=$value['faktor'].' '.$name;
+											  	//  }
+											  	// else{
+											  	// 	 $faktor[$value['faktor']] =$value['faktor'].' '.$name;
+											  	// }
+											  	//  // $ar= array(
+											  	//  // 	$name_min[$char]=>$ux_minimal[$char]);
+											  	 //$data_s=array_merge($data_s,$ar);?>
 											  	&micro;<sub>  <?php echo $value['faktor'];?> berat</sub>(<?php echo $values['total']; ?>)=<?=$ux_berat[$char]?>;<br />
 											  <?php }
 
@@ -526,7 +561,7 @@ $(document).on('click', '#tess',function(e){
 										//hasil seleksi semua kelas
 										//print_r($str_klas);
 										//array hasil yang lebih dari 0
-										//print_r($data_s);
+										print_r($data_s);
 										?>
 									</table>
 								  </fieldset>
@@ -535,12 +570,15 @@ $(document).on('click', '#tess',function(e){
 									<legend>[2] Penerapan Fungsi Implikasi</legend>
 									<p>Nilai &alpha;-predikat dan Z dari setiap aturan</p>
 									<?php
-									
+									//print_r($combine);exit;
+									$n=1;
 										 foreach ($combine as $dt) {
 										 	$data_cari=$dt;
+										 	//print_r($dt);
 										 	$get_aturan=$this->M_pemeriksaan->findaturan($data_cari);
+										 	//print_r($get_aturan);
 										 	if(!empty($get_aturan)){
-										 		$noaturan=1;
+										 		
 										 		foreach ($get_aturan as $atr) {
 										 			$da=explode(" AND ", $atr['conditions']);
 										 			//print_r($da);
@@ -549,12 +587,12 @@ $(document).on('click', '#tess',function(e){
 												 		//print_r($valperdt);
 												 		$result[]=isset($data_s[$valperdt]) ? $data_s[$valperdt] : null;
 												 	}?>
-												 	<p><strong>Rule <?php echo $noaturan;?> :</strong><em> IF <?php echo $atr['conditions']; ?> THEN <?php echo $atr['hasil']; ?> </em><br />
+												 	<p><strong>Rule <?php echo $n;?> :</strong><em> IF <?php echo $atr['conditions']; ?> THEN <?php echo $atr['hasil']; ?> </em><br />
 												 	<?php
 												 	//print_r($result);
 												 	
-												 	//print_r($datamin);?>
-												 	&alpha;-predikat<sub><?php echo $noaturan; ?></sub>=
+												 	//print_r($da);exit;?>
+												 	&alpha;-predikat<sub><?php echo $n; ?></sub>=
 												 		<?php
 												 		$totarr = count($da);
 												 		$nom = 1;
@@ -568,7 +606,8 @@ $(document).on('click', '#tess',function(e){
 													  = min(&micro;
 													  <?php  
 												 		$nom = 1;
-													  foreach ($da as $valperdt) {?>
+												 		//print_r($data_s);
+													  foreach ($da as $valperdt) { //print_r($valperdt);?>
 														 	&micro;<sub><?php echo $valperdt; ?></sub>
 														 	(<?php echo $data_s[$valperdt]; ?>) 
 														 	<?php if($nom !== $totarr){?>
@@ -592,6 +631,7 @@ $(document).on('click', '#tess',function(e){
 													<?php 
 													$con = $atr['hasil'];
 													$classdep = $this->M_pemeriksaan->get_classdepBycon($con); 
+													//print_r($con);
 													foreach ($classdep as $ke) {
 														$z_max = $ke->nilai_klasifikasi_atas;
 														$z_min = $ke->nilai_klasifikasi_bawah;
@@ -600,17 +640,22 @@ $(document).on('click', '#tess',function(e){
 													$z=$z_max-$datamin*($z_max-$z_min);
 													$data_z[]=$z;
 													?>
-													Dari himpunan <?php echo $atr['hasil']; ?> : (<?=$z_max?>-z<sub><?php echo $noaturan ; ?></sub>)/<?=($z_max-$z_min)?>= <?=$datamin?><br/>
-													diperoleh <strong>z<sub><?php echo $noaturan ; ?></sub></strong>= <?=$z?>
-												 	<?php $noaturan++;
+													Dari himpunan <?php echo $atr['hasil']; ?> : (<?=$z_max?>-z<sub><?php echo $n ; ?></sub>)/<?=($z_max-$z_min)?>= <?=$datamin?><br/>
+													diperoleh <strong>z<sub><?php echo $n ; ?></sub></strong>= <?=$z?>
+												 	<?php 
 										 		}
+										 		$n++;
 											}
+										// else{
+										// 	echo '<h2>tidak ada aturan yang sesuai</h2>';exit;
+										// }
 										 	//echo '</br>';
 										 	// if (in_array($dt,$data_s)){
 										 	// 	print_r('bener');
 										 	// }
 										 	
 										 	//$a++;
+										 	
 										 }
 									?>
 								  </fieldset>
@@ -631,11 +676,12 @@ $(document).on('click', '#tess',function(e){
 								  <p>z= (
 								  	<?php
 								  	$num = 1; 
+								  	//print_r($a_predikat);print_r($data_z);
 								  	foreach ($a_predikat as $keys) { ?>
-								  		&alpha;-predikat<sub><?php echo $num; ?></sub>*z<sub>1</sub>
+								  		&alpha;-predikat<sub><?php echo $num; ?></sub>*z<sub><?php echo $num; ?></sub>
 								  		<?php if ($num != $totalarray){?>
 											+
-								  		<?php }
+								  		<?php } $num++;
 								  	} ?>
 								  	)
 								  /(<?php
@@ -644,7 +690,7 @@ $(document).on('click', '#tess',function(e){
 								  		&alpha;-predikat<sub><?php echo $num; ?></sub>
 								  		<?php if ($num != $totalarray){?>
 											+
-								  		<?php }
+								  		<?php }$num++;
 								  	} ?> )<br/>
 									= (
 									<?php
@@ -672,6 +718,7 @@ $(document).on('click', '#tess',function(e){
 								  <?php 
 								  $data_batas = $z;
 								  $cekklas= $this->M_pemeriksaan->cek_klas_depresi($data_batas);
+								  //print_r($cekklas);exit;
 								  foreach ($cekklas as $class) {
 								   	$hasil_class = $class->id_klass;
 								   } ?>

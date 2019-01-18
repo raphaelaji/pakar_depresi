@@ -60,6 +60,7 @@ class M_pemeriksaan extends CI_Model {
       $this->db->join('tb_pemeriksaan', 'tb_diagnosa.id_pemeriksaan = tb_pemeriksaan.id_pemeriksaan','Left');
       $this->db->join('tb_klasifikasi_depresi', 'tb_diagnosa.id_klass_dep = tb_klasifikasi_depresi.id_klass','Left');
       $this->db->join('tb_user', 'tb_diagnosa.user_id = tb_user.id_user','Left');
+       $this->db->order_by('tb_diagnosa.id_diagnosa','desc');
       $this->db->order_by('tb_pemeriksaan.creation_date','desc');
       //$this->db->where('tb_diagnosa.id_diagnosa',$id_diagnosa);
       

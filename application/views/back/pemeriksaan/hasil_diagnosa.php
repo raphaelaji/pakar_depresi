@@ -137,7 +137,15 @@ $(document).on('click', '#tess',function(e){
                                       	
                                       	
                                       </tr> 
-                                   
+	                                   <tr>
+	                                    	<th align="center">Saran</th>
+	                                    	
+	                                    </tr>
+                                   		 <tr>
+												<td><p class="p-3 mb-2 bg-info text-white"><b><?php echo $list['saran'];?></b></p></td>
+	                                      	
+                                      	
+                                      	</tr> 
 
                                       
                                           

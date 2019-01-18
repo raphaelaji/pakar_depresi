@@ -109,6 +109,8 @@
                                             else if ($list['id_klass_dep'] == 4){?>
                                               <p class="p-3 mb-2 bg-danger text-white" align="center"><?php echo $list['nama_klasifikasi'];?></p>
                                             <?php } ?>
+                                             <div align="center"><h3>Saran</h3></div>
+                                             <p class="p-3 mb-2 bg-info text-white"><b><?php echo $list['saran'];?></b></p>
                                             </div>
                                           
                                             </div>
