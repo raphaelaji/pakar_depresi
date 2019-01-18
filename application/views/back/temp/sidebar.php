@@ -20,6 +20,8 @@
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/gejala" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Data Gejala</span></a>
                         </li>
+                        <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/diagnosa/all_hasil_diagnosa" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Data Diagnosa</span></a>
+                        </li>
                         <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/pakar" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Data Aturan Pakar</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/user" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Data User</span></a>
@@ -46,6 +48,8 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/user/lihat_profile/<?php echo $id_user?>" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                        </li>
+                        <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/diagnosa/hasil_diagnosa" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">History Pemeriksaan</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?php echo base_url() ?>back/pemeriksaan" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Pemeriksaan</span></a>
                         </li>

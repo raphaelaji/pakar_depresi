@@ -40,16 +40,17 @@ $(document).on('click', '#tess',function(e){
 								<font color="red"><b>Petunjuk : </b></font></br>
 								<span class="badge badge-danger"></span>
 							<!-- </a> -->
-							<p>Angket berikut ini terdiri dari 21 kelompok pernyataan. Mohon setiap kelompok pernyataan dibaca dengan cermat. Setelah itu, pilih salah satu dari pernyataan di dalam setiap kelompok yang paling menggambarkan perasaan Anda <font color="blue"><b><u>selama dua minggu terakhir</u></b></font>, termasuk hari ini.</p>
+							<p>Angket berikut ini terdiri dari 21 kelompok pernyataan. Mohon setiap kelompok pernyataan dibaca dengan cermat. Setelah itu, pilih salah satu dari pernyataan di dalam setiap kelompok yang paling menggambarkan perasaan Anda <font color="blue"><b>selama dua minggu terakhir</b></font>, termasuk hari ini.</p>
 						<form class="form-material" action="<?php echo base_url(). 'back/pemeriksaan/tambah_aksi'; ?>" method="POST">
 							<table width="70%" border="0" cellspacing="0" cellpadding="0" class="table table-striped">
 								<?php $no=1;
 								$i=1;
-								foreach($pertanyaan as $pr) {?>
+								foreach($pertanyaan as $keyz => $pr) { $keyz1 = $keyz+1;?>
 								<div class="form-group">
 									<label for="" class="col-lg-6">
 										<input type="hidden" name="kategori<?php echo $i; ?>" id="id_kategori<?php echo $pr['id_kategori']; ?>" class="form-control" value="<?php echo $pr['id_kategori']; ?>" />
-										<?php echo $no++; ?>.&nbsp <?php echo $pr['kategori'];?>
+										<?php //echo $no++; ?><!-- .&nbsp  --><?php //echo $pr['kategori'];?>
+										<?php echo $no++; ?>.&nbsp <?php echo 'kelompok pernyataan ke '.$keyz1;?>
 										
 									</label>
 									<?php
@@ -85,4 +86,4 @@ $(document).on('click', '#tess',function(e){
 	</div>
 	<!-- ============================================================== -->
 	<!-- End Container fluid  -->
-	<!-- ============================================================== -->
+	<!-- ==============================================================

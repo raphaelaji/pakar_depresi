@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2019 at 05:31 AM
+-- Generation Time: Jan 11, 2019 at 06:24 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -4351,49 +4351,7 @@ INSERT INTO `tb_detail_pemeriksaan` (`id_detail`, `id_pemeriksaan`, `id_faktor`,
 (4134, 197, 'F003', 'K018', NULL, '0'),
 (4135, 197, 'F002', 'K019', NULL, '0'),
 (4136, 197, 'F003', 'K020', NULL, '0'),
-(4137, 197, 'F003', 'K021', NULL, '0'),
-(4138, 198, 'F001', 'K001', 'G002', '0.2277'),
-(4139, 198, 'F001', 'K002', 'G006', '0.1254'),
-(4140, 198, 'F002', 'K003', 'G010', '0.165'),
-(4141, 198, 'F003', 'K004', 'G014', '0.1914'),
-(4142, 198, 'F002', 'K005', 'G018', '0.1122'),
-(4143, 198, 'F002', 'K006', 'G022', '0.1518'),
-(4144, 198, 'F002', 'K007', 'G026', '0.2145'),
-(4145, 198, 'F002', 'K008', 'G030', '0.1881'),
-(4146, 198, 'F002', 'K009', 'G034', '0.264'),
-(4147, 198, 'F001', 'K010', 'G038', '0.1419'),
-(4148, 198, 'F001', 'K011', 'G042', '0.198'),
-(4149, 198, 'F003', 'K012', 'G046', '0.198'),
-(4150, 198, 'F002', 'K013', 'G050', '0.1881'),
-(4151, 198, 'F002', 'K014', 'G054', '0.2541'),
-(4152, 198, 'F003', 'K015', 'G058', '0.165'),
-(4153, 198, 'F003', 'K016', 'G062', '0.1881'),
-(4154, 198, 'F001', 'K017', 'G066', '0.1551'),
-(4155, 198, 'F003', 'K018', 'G070', '0.1452'),
-(4156, 198, 'F002', 'K019', 'G074', '0.1914'),
-(4157, 198, 'F003', 'K020', 'G078', '0.1485'),
-(4158, 198, 'F003', 'K021', 'G082', '0.0858'),
-(4159, 199, 'F001', 'K001', 'G001', '0'),
-(4160, 199, 'F001', 'K002', 'G005', '0'),
-(4161, 199, 'F002', 'K003', NULL, '0'),
-(4162, 199, 'F003', 'K004', NULL, '0'),
-(4163, 199, 'F002', 'K005', NULL, '0'),
-(4164, 199, 'F002', 'K006', NULL, '0'),
-(4165, 199, 'F002', 'K007', NULL, '0'),
-(4166, 199, 'F002', 'K008', NULL, '0'),
-(4167, 199, 'F002', 'K009', NULL, '0'),
-(4168, 199, 'F001', 'K010', NULL, '0'),
-(4169, 199, 'F001', 'K011', NULL, '0'),
-(4170, 199, 'F003', 'K012', NULL, '0'),
-(4171, 199, 'F002', 'K013', NULL, '0'),
-(4172, 199, 'F002', 'K014', NULL, '0'),
-(4173, 199, 'F003', 'K015', NULL, '0'),
-(4174, 199, 'F003', 'K016', NULL, '0'),
-(4175, 199, 'F001', 'K017', NULL, '0'),
-(4176, 199, 'F003', 'K018', NULL, '0'),
-(4177, 199, 'F002', 'K019', NULL, '0'),
-(4178, 199, 'F003', 'K020', NULL, '0'),
-(4179, 199, 'F003', 'K021', NULL, '0');
+(4137, 197, 'F003', 'K021', NULL, '0');
 
 -- --------------------------------------------------------
 
@@ -4494,9 +4452,7 @@ INSERT INTO `tb_diagnosa` (`id_diagnosa`, `id_pemeriksaan`, `total_akhir`, `id_k
 (78, 194, '13.6641592', 2, 1),
 (79, 195, '13.6641592', 2, 1),
 (80, 196, '18.3272566', 2, 1),
-(81, 197, '0', 1, 1),
-(82, 198, '13.6641592', 2, 1),
-(83, 199, '0', 1, 1);
+(81, 197, '0', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5127,13 +5083,7 @@ INSERT INTO `tb_faktor_pemeriksaan` (`id_faktor_pemeriksaan`, `id_pemeriksaan`, 
 (588, 196, 'F003', '2.1433'),
 (589, 197, 'F001', '0'),
 (590, 197, 'F002', '0'),
-(591, 197, 'F003', '0'),
-(592, 198, 'F001', '0.8481000000000001'),
-(593, 198, 'F002', '1.7291999999999998'),
-(594, 198, 'F003', '1.122'),
-(595, 199, 'F001', '0'),
-(596, 199, 'F002', '0'),
-(597, 199, 'F003', '0');
+(591, 197, 'F003', '0');
 
 -- --------------------------------------------------------
 
@@ -5288,19 +5238,18 @@ CREATE TABLE `tb_klasifikasi_depresi` (
   `id_klass` int(11) NOT NULL,
   `nama` varchar(20) NOT NULL,
   `nilai_klasifikasi_bawah` varchar(20) NOT NULL,
-  `nilai_klasifikasi_atas` varchar(20) NOT NULL,
-  `saran` varchar(500) NOT NULL
+  `nilai_klasifikasi_atas` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_klasifikasi_depresi`
 --
 
-INSERT INTO `tb_klasifikasi_depresi` (`id_klass`, `nama`, `nilai_klasifikasi_bawah`, `nilai_klasifikasi_atas`, `saran`) VALUES
-(1, 'Depresi minimal', '0', '13', 'Dari hasil tes yang telah anda isi sebelumnya, dapat disimpulkan anda berada pada keadaan depresi minimal atau bisa diartikan normal. Anda baik-baik saja.'),
-(2, 'Depresi rendah', '13', '19', 'Dari hasil tes yang telah anda isi sebelumnya, dapat disimpulkan anda berada pada keadaan depresi ringan. Depresi ringan bila tidak cepat ditangani bisa menyebabkan anda menderita depresi  sedang hingga depresi berat. \r\nUntuk mengurangi depresi anda bisa melakukan hal yang anda sukai atau anda bisa sejenak mencari hiburan untuk merelaksasi pikiran. \r\n'),
-(3, 'Depresi sedang', '19', '28', 'Dari hasil tes yang telah anda isi sebelumnya, dapat disimpulkan anda berada pada keadaan depresi sedang. Anda perlu waspada karena bila tidak segera diatasi depresi anda bisa berkembang menjadi depresi berat yang akan membahayakan diri anda. Untuk mengurangi depresi, anda bisa berbagi cerita dengan seseorang yang anda percaya dan nyaman untuk anda ajak bicara.'),
-(4, 'Depresi Berat', '28', '63', 'Dari hasil tes yang telah anda isi sebelumnya, dapat disimpulkan anda berada pada keadaan depresi berat. Bila anda berada dalam tahap depresi berat, sangat disarankan anda berkonsultasi dengan psikolog mengenai masalah anda agar mendapatkan pertolongan sejak dini. Bila anda merasa malu untuk datang ke psikolog, minta tolonglah orang yang anda percayai untuk mengantar.');
+INSERT INTO `tb_klasifikasi_depresi` (`id_klass`, `nama`, `nilai_klasifikasi_bawah`, `nilai_klasifikasi_atas`) VALUES
+(1, 'Depresi minimal', '0', '13'),
+(2, 'Depresi rendah', '13', '19'),
+(3, 'Depresi sedang', '19', '28'),
+(4, 'Depresi Berat', '28', '63');
 
 -- --------------------------------------------------------
 
@@ -5619,9 +5568,7 @@ INSERT INTO `tb_pemeriksaan` (`id_pemeriksaan`, `user_id`, `creation_date`) VALU
 (194, 1, '2019-01-11'),
 (195, 1, '2019-01-11'),
 (196, 1, '2019-01-11'),
-(197, 1, '2019-01-11'),
-(198, 1, '2019-01-11'),
-(199, 1, '2019-01-18');
+(197, 1, '2019-01-11');
 
 -- --------------------------------------------------------
 
@@ -5759,19 +5706,19 @@ ALTER TABLE `tb_batas`
 -- AUTO_INCREMENT for table `tb_detail_pemeriksaan`
 --
 ALTER TABLE `tb_detail_pemeriksaan`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4180;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4138;
 
 --
 -- AUTO_INCREMENT for table `tb_diagnosa`
 --
 ALTER TABLE `tb_diagnosa`
-  MODIFY `id_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `tb_faktor_pemeriksaan`
 --
 ALTER TABLE `tb_faktor_pemeriksaan`
-  MODIFY `id_faktor_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=598;
+  MODIFY `id_faktor_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=592;
 
 --
 -- AUTO_INCREMENT for table `tb_klasifikasi_depresi`
@@ -5789,7 +5736,7 @@ ALTER TABLE `tb_pakar`
 -- AUTO_INCREMENT for table `tb_pemeriksaan`
 --
 ALTER TABLE `tb_pemeriksaan`
-  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT for table `tb_user`

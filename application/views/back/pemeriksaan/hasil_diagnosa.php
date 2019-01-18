@@ -62,25 +62,7 @@ $(document).on('click', '#tess',function(e){
                                           <td><?php echo $list['usia']; ?></td>
                                           <td><?php echo $list['gender']; ?></td>
                                       </tr>
-                                      <!-- <tr>
-                                      	<td><?php echo $list['creation_date'];?></td>
-                                      </tr>
-                                      <tr>
-                                      	<?php if ($list['id_klass_dep'] == 1){ ?>
-											<td bgcolor="green"><?php echo $list['nama_klasifikasi'];?></td>
-										<?php
-                                      	}
-                                      else if ($list['id_klass_dep'] == 2){ ?>
-                                      		<td bgcolor="yellow"><?php echo $list['nama_klasifikasi'];?></td>
-                                      <?php	}
-                                      else if ($list['id_klass_dep'] == 3){ ?>
-                                      		<td bgcolor="pink"><?php echo $list['nama_klasifikasi'];?></td>
-                                      <?php	}
-                                      else if ($list['id_klass_dep'] == 4){?>
-                                      		<td bgcolor="red"><?php echo $list['nama_klasifikasi'];?></td>
-                                      	<?php } ?>
-                                      	
-                                      </tr> -->
+                                     
                                       <?php } ?>
 
                                       <?php echo $this->session->flashdata('pesan'); ?>
@@ -155,7 +137,15 @@ $(document).on('click', '#tess',function(e){
                                       	
                                       	
                                       </tr> 
-                                   
+	                                   <tr>
+	                                    	<th align="center">Saran</th>
+	                                    	
+	                                    </tr>
+                                   		 <tr>
+												<td><p class="p-3 mb-2 bg-info text-white"><b><?php echo $list['saran'];?></b></p></td>
+	                                      	
+                                      	
+                                      	</tr> 
 
                                       
                                           
