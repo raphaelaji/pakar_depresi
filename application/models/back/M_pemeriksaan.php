@@ -53,6 +53,35 @@ class M_pemeriksaan extends CI_Model {
       return $q->result_array();
 
   	}
+  	public function getalldiagnosa($num,$offset){
+
+      $this->db->select('*,tb_klasifikasi_depresi.nama AS nama_klasifikasi');
+      $this->db->from('tb_diagnosa','tb_pemeriksaan','tb_klasifikasi_depresi','tb_user');
+      $this->db->join('tb_pemeriksaan', 'tb_diagnosa.id_pemeriksaan = tb_pemeriksaan.id_pemeriksaan','Left');
+      $this->db->join('tb_klasifikasi_depresi', 'tb_diagnosa.id_klass_dep = tb_klasifikasi_depresi.id_klass','Left');
+      $this->db->join('tb_user', 'tb_diagnosa.user_id = tb_user.id_user','Left');
+      $this->db->order_by('tb_pemeriksaan.creation_date','desc');
+      //$this->db->where('tb_diagnosa.id_diagnosa',$id_diagnosa);
+      
+      $q = $this->db->get('',$num,$offset);
+      return $q->result_array();
+
+  	}
+  	public function getdiagnosauser($id_user,$num,$offset){
+
+      $this->db->select('*,tb_klasifikasi_depresi.nama AS nama_klasifikasi');
+      $this->db->from('tb_diagnosa','tb_pemeriksaan','tb_klasifikasi_depresi','tb_user');
+      $this->db->join('tb_pemeriksaan', 'tb_diagnosa.id_pemeriksaan = tb_pemeriksaan.id_pemeriksaan','Left');
+      $this->db->join('tb_klasifikasi_depresi', 'tb_diagnosa.id_klass_dep = tb_klasifikasi_depresi.id_klass','Left');
+      $this->db->join('tb_user', 'tb_diagnosa.user_id = tb_user.id_user','Left');
+      $this->db->where('tb_diagnosa.user_id',$id_user);
+      $this->db->order_by('tb_pemeriksaan.creation_date','desc');
+     
+      $q = $this->db->get('',$num,$offset);
+     
+      return $q->result_array();
+
+  	}
 
     public function get_(){
     $query =$this->db->get('tb_pertanyaan');
@@ -97,11 +126,7 @@ class M_pemeriksaan extends CI_Model {
     	$query = $this->db->get('');
     	return $query->result_array();
     }
-  	//Fungsi hapus data tabel
-  	public function hapus_tmpgejala(){
-    	return $this->db->empty_table('tmp_gejala');
-  	}
-
+  	
   	//Fungsi cek data di database
   	public function get_data(){
   		$this->db->select('*');
